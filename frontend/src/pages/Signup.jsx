@@ -2,16 +2,19 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { register, clearErrors } from '../features/authSlice';
 import { useNavigate, Link } from 'react-router-dom';
-import { Mail, Lock, User, ChefHat, UserPlus } from 'lucide-react';
+import { Mail, Lock, User, ChefHat, UserPlus, Phone, Shield } from 'lucide-react';
 
 const Signup = () => {
     const [user, setUser] = useState({
         name: '',
         email: '',
-        role: 'customer'
+        phone: '',
+        password: '',
+        address: '',
+        role: 'buyer'
     });
 
-    const { name, email, role } = user;
+    const { name, email, phone, password, address, role } = user;
     
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -33,134 +36,204 @@ const Signup = () => {
 
     const submitHandler = (e) => {
         e.preventDefault();
-        dispatch(register(user));
+        const registerData = { ...user, email: email.toLowerCase() };
+        dispatch(register(registerData));
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 via-white to-royal-blue-50 py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div className="min-h-screen flex items-center justify-center bg-black py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
             {/* Animated Background */}
             <div className="absolute inset-0 overflow-hidden">
-                <div className="absolute top-20 right-20 w-72 h-72 bg-purple-200 rounded-full opacity-20 blur-3xl animate-pulse-slow"></div>
-                <div className="absolute bottom-20 left-20 w-72 h-72 bg-royal-blue-200 rounded-full opacity-20 blur-3xl animate-pulse-slow"></div>
+                <div className="absolute top-20 right-20 w-72 h-72 bg-amber-200 rounded-full opacity-20 blur-3xl animate-pulse-slow"></div>
+                <div className="absolute bottom-20 left-20 w-72 h-72 bg-amber-300 rounded-full opacity-20 blur-3xl animate-pulse-slow"></div>
             </div>
 
             <div className="max-w-md w-full space-y-8 relative z-10 animate-scale-in">
                 {/* Card */}
-                <div className="bg-white/80 backdrop-blur-lg p-10 rounded-2xl shadow-2xl border border-white">
-                    {/* Header */}
-                    <div className="text-center mb-8">
-                        <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-500 to-royal-blue-600 rounded-2xl mb-4 shadow-lg">
-                            <UserPlus className="w-8 h-8 text-white" />
-                        </div>
-                        <h2 className="text-3xl font-bold text-gray-900">
-                            Join Home Ziaka
-                        </h2>
-                        <p className="mt-2 text-gray-600">Create your account in seconds</p>
-                    </div>
+               <div className="bg-black/90 p-10 rounded-2xl shadow-2xl border border-amber-600">
+  {/* Header */}
+  <div className="text-center mb-8">
+    <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-amber-500 to-amber-700 rounded-2xl mb-4 shadow-lg">
+      <UserPlus className="w-8 h-8 text-white" />
+    </div>
+    <h2 className="text-3xl font-bold text-white uppercase italic tracking-tighter">
+      {role === 'seller' ? 'Seller Hub Registration' : 'Join FlockPilot'}
+    </h2>
+    <p className="mt-2 text-gray-500 text-xs font-bold uppercase tracking-widest">
+        {role === 'seller' ? 'Setup your poultry business profile' : 'Create your buyer account in seconds'}
+    </p>
+  </div>
 
-                    {/* Form */}
-                    <form className="space-y-5" onSubmit={submitHandler}>
-                        {/* Name Field */}
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                Full Name
-                            </label>
-                            <div className="relative">
-                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                    <User className="h-5 w-5 text-gray-400" />
-                                </div>
-                                <input
-                                    type="text"
-                                    name="name"
-                                    required
-                                    className="input-field pl-12"
-                                    placeholder="John Doe"
-                                    value={name}
-                                    onChange={registerDataChange}
-                                />
-                            </div>
-                        </div>
+  {/* Form */}
+  <form className="space-y-4" onSubmit={submitHandler}>
+    {/* Role Selection */}
+    <div className="mb-6">
+      <div className="grid grid-cols-3 gap-4">
+        <button
+          type="button"
+          onClick={() => setUser({ ...user, role: 'buyer' })}
+          className={`p-4 rounded-xl border-2 transition-all duration-300 ${
+            role === 'buyer'
+              ? 'border-amber-600 bg-amber-500 shadow-md text-black'
+              : 'border-gray-800 hover:border-amber-400 text-white'
+          }`}
+        >
+          <User className={`w-6 h-6 mx-auto mb-2 ${role === 'buyer' ? 'text-black' : 'text-amber-400'}`} />
+          <div className={`text-[10px] font-black uppercase tracking-widest ${role === 'buyer' ? 'text-black' : 'text-white'}`}>
+            Buy Poultry
+          </div>
+        </button>
+        <button
+          type="button"
+          onClick={() => setUser({ ...user, role: 'seller' })}
+          className={`p-4 rounded-xl border-2 transition-all duration-300 ${
+            role === 'seller'
+              ? 'border-amber-700 bg-amber-600 shadow-md text-black'
+              : 'border-gray-800 hover:border-amber-400 text-white'
+          }`}
+        >
+          <ChefHat className={`w-6 h-6 mx-auto mb-2 ${role === 'seller' ? 'text-black' : 'text-amber-400'}`} />
+          <div className={`text-[10px] font-black uppercase tracking-widest ${role === 'seller' ? 'text-black' : 'text-white'}`}>
+            Sell Poultry
+          </div>
+        </button>
+        <button
+          type="button"
+          onClick={() => navigate('/admin/login')}
+          className="p-4 rounded-xl border-2 transition-all duration-300 border-gray-800 hover:border-amber-400 text-white"
+        >
+          <Shield className="w-6 h-6 mx-auto mb-2 text-amber-400" />
+          <div className="text-[10px] font-black uppercase tracking-widest text-white">
+            Admin
+          </div>
+        </button>
+      </div>
+    </div>
 
-                        {/* Email Field */}
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                Email Address
-                            </label>
-                            <div className="relative">
-                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                    <Mail className="h-5 w-5 text-gray-400" />
-                                </div>
-                                <input
-                                    type="email"
-                                    name="email"
-                                    required
-                                    className="input-field pl-12"
-                                    placeholder="you@example.com"
-                                    value={email}
-                                    onChange={registerDataChange}
-                                />
-                            </div>
-                        </div>
-
-
-                        {/* Role Selection */}
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-3">
-                                I want to...
-                            </label>
-                            <div className="grid grid-cols-2 gap-4">
-                                <button
-                                    type="button"
-                                    onClick={() => setUser({...user, role: 'customer'})}
-                                    className={`p-4 rounded-xl border-2 transition-all duration-300 ${
-                                        role === 'customer' 
-                                            ? 'border-royal-blue bg-royal-blue-50 shadow-md' 
-                                            : 'border-gray-200 hover:border-royal-blue-300'
-                                    }`}
-                                >
-                                    <User className={`w-6 h-6 mx-auto mb-2 ${role === 'customer' ? 'text-royal-blue' : 'text-gray-400'}`} />
-                                    <div className={`text-sm font-semibold ${role === 'customer' ? 'text-royal-blue' : 'text-gray-600'}`}>
-                                        Order Food
-                                    </div>
-                                </button>
-                                <button
-                                    type="button"
-                                    onClick={() => setUser({...user, role: 'chef'})}
-                                    className={`p-4 rounded-xl border-2 transition-all duration-300 ${
-                                        role === 'chef' 
-                                            ? 'border-purple-500 bg-purple-50 shadow-md' 
-                                            : 'border-gray-200 hover:border-purple-300'
-                                    }`}
-                                >
-                                    <ChefHat className={`w-6 h-6 mx-auto mb-2 ${role === 'chef' ? 'text-purple-600' : 'text-gray-400'}`} />
-                                    <div className={`text-sm font-semibold ${role === 'chef' ? 'text-purple-600' : 'text-gray-600'}`}>
-                                        Be a Chef
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-
-                        {/* Submit Button */}
-                        <button
-                            type="submit"
-                            disabled={loading}
-                            className="w-full btn-primary py-4 text-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed mt-6"
-                        >
-                            {loading ? (
-                                <>
-                                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                                    Processing...
-                                </>
-                            ) : (
-                                <>
-                                    <UserPlus className="w-5 h-5" />
-                                    Signup for Free
-                                </>
-                            )}
-                        </button>
-                    </form>
-
+    {/* Shop Name (Seller Only) */}
+    {role === 'seller' && (
+        <div className="animate-in fade-in slide-in-from-top-2 duration-300">
+            <label className="block text-[10px] font-black text-amber-500 uppercase tracking-widest mb-2 ml-1">
+                Shop Name / Username
+            </label>
+            <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <UserPlus className="h-4 w-4 text-amber-500/50" />
                 </div>
+                <input
+                    type="text"
+                    name="name"
+                    required
+                    className="w-full bg-zinc-900 border border-zinc-800 text-white text-sm rounded-xl py-3 pl-11 pr-4 focus:border-amber-500/50 focus:ring-0 outline-none transition-all placeholder:text-zinc-700 font-bold"
+                    placeholder="e.g. Ali Poultry Farm"
+                    value={name}
+                    onChange={registerDataChange}
+                />
+            </div>
+        </div>
+    )}
+
+    {/* Email Field */}
+    <div>
+      <label className="block text-[10px] font-black text-amber-500 uppercase tracking-widest mb-2 ml-1">
+        Email Address
+      </label>
+      <div className="relative">
+        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+          <Mail className="h-4 w-4 text-amber-500/50" />
+        </div>
+        <input
+          type="email"
+          name="email"
+          required
+          className="w-full bg-zinc-900 border border-zinc-800 text-white text-sm rounded-xl py-3 pl-11 pr-4 focus:border-amber-500/50 focus:ring-0 outline-none transition-all placeholder:text-zinc-700 font-bold"
+          placeholder="you@example.com"
+          value={email}
+          onChange={registerDataChange}
+        />
+      </div>
+    </div>
+
+    {/* Password Field */}
+    <div>
+      <label className="block text-[10px] font-black text-amber-500 uppercase tracking-widest mb-2 ml-1">
+        Password
+      </label>
+      <div className="relative">
+        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+          <Lock className="h-4 w-4 text-amber-500/50" />
+        </div>
+        <input
+          type="password"
+          name="password"
+          required
+          className="w-full bg-zinc-900 border border-zinc-800 text-white text-sm rounded-xl py-3 pl-11 pr-4 focus:border-amber-500/50 focus:ring-0 outline-none transition-all placeholder:text-zinc-700 font-bold"
+          placeholder="••••••••"
+          value={password}
+          onChange={registerDataChange}
+        />
+      </div>
+    </div>
+
+    {/* Phone Field */}
+    <div>
+      <label className="block text-[10px] font-black text-amber-500 uppercase tracking-widest mb-2 ml-1">
+        Contact Number
+      </label>
+      <div className="relative">
+        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+          <Phone className="h-4 w-4 text-amber-500/50" />
+        </div>
+        <input
+          type="text"
+          name="phone"
+          required
+          className="w-full bg-zinc-900 border border-zinc-800 text-white text-sm rounded-xl py-3 pl-11 pr-4 focus:border-amber-500/50 focus:ring-0 outline-none transition-all placeholder:text-zinc-700 font-bold"
+          placeholder="+92 300 1234567"
+          value={phone}
+          onChange={registerDataChange}
+        />
+      </div>
+    </div>
+
+    {/* Shop Address (Seller Only) */}
+    {role === 'seller' && (
+         <div className="animate-in fade-in slide-in-from-top-2 duration-300">
+            <label className="block text-[10px] font-black text-amber-500 uppercase tracking-widest mb-2 ml-1">
+                Shop / Business Address
+            </label>
+            <textarea
+                name="address"
+                required
+                rows="2"
+                className="w-full bg-zinc-900 border border-zinc-800 text-white text-sm rounded-xl py-3 px-4 focus:border-amber-500/50 focus:ring-0 outline-none transition-all placeholder:text-zinc-700 font-bold resize-none"
+                placeholder="Full address of your shop or farm..."
+                value={address}
+                onChange={registerDataChange}
+            ></textarea>
+        </div>
+    )}
+
+    {/* Submit Button */}
+    <button
+      type="submit"
+      disabled={loading}
+      className="w-full py-4 text-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed mt-4 bg-gradient-to-r from-amber-500 to-amber-700 text-black font-black uppercase tracking-widest text-xs rounded-xl shadow-[0_5px_15px_rgba(245,158,11,0.3)] hover:scale-[1.02] transition-all active:scale-95"
+    >
+      {loading ? (
+        <>
+          <div className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
+          CREATING...
+        </>
+      ) : (
+        <>
+          <UserPlus className="w-5 h-5" />
+          {role === 'seller' ? 'START SELLING' : 'CREATE ACCOUNT'}
+        </>
+      )}
+    </button>
+  </form>
+</div>
 
                 {/* Bottom Text */}
                 <p className="text-center text-sm text-gray-500">

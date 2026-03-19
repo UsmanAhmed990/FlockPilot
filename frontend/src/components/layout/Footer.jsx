@@ -1,39 +1,121 @@
+import { Egg, Drumstick, Mail, Phone } from "lucide-react";
+
 const Footer = () => {
-    return (
-        <footer className="bg-black text-white py-8 mt-auto">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                    <div>
-                        <h3 className="text-xl font-bold mb-4">Home Ziaka</h3>
-                        <p className="text-gray-400">Authentic homemade food delivered to your doorstep.</p>
-                    </div>
-                    <div>
-                        <h4 className="font-semibold mb-4">Quick Links</h4>
-                        <ul className="space-y-2 text-gray-400">
-                            <li><a href="/browse" className="hover:text-white">Browse Food</a></li>
-                            <li><a href="/chefs" className="hover:text-white">Our Chefs</a></li>
-                            <li><a href="/about" className="hover:text-white">About Us</a></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4 className="font-semibold mb-4">For Chefs</h4>
-                        <ul className="space-y-2 text-gray-400">
-                            <li><a href="/signup" className="hover:text-white">Join as Chef</a></li>
-                            <li><a href="/chef/dashboard" className="hover:text-white">Chef Dashboard</a></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4 className="font-semibold mb-4">Contact</h4>
-                        <p className="text-gray-400">support@homeziaka.com</p>
-                        <p className="text-gray-400">+92 300 1234567</p>
-                    </div>
-                </div>
-                <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500">
-                    &copy; {new Date().getFullYear()} Home Ziaka. All rights reserved.
-                </div>
+  return (
+    <footer className="bg-black text-white mt-auto border-t border-amber-500/30">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+
+          {/* Brand */}
+          <div className="space-y-4">
+            <h3 className="text-2xl font-bold bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">
+              FlockPilot
+            </h3>
+            <p className="text-gray-400 text-sm leading-relaxed">
+              Fresh poultry marketplace where buyers connect with trusted
+              sellers to purchase premium chicken, wings and farm eggs
+              delivered with quality and hygiene.
+            </p>
+
+            <div className="flex space-x-3 pt-2">
+              <Egg className="text-amber-400 animate-pulse" size={20} />
+              <Drumstick className="text-amber-400 animate-pulse" size={20} />
             </div>
-        </footer>
-    );
+          </div>
+
+          {/* Marketplace */}
+          <div>
+            <h4 className="font-semibold mb-4 text-amber-400">
+              Marketplace
+            </h4>
+            <ul className="space-y-2 text-gray-400 text-sm">
+              <li>
+                <a href="/browse" className="hover:text-amber-400 transition">
+                  Browse Chicken
+                </a>
+              </li>
+              <li>
+                <a href="/eggs" className="hover:text-amber-400 transition">
+                  Farm Eggs
+                </a>
+              </li>
+              <li>
+                <a href="/wings" className="hover:text-amber-400 transition">
+                  Chicken Wings
+                </a>
+              </li>
+              <li>
+                <a href="/sellers" className="hover:text-amber-400 transition">
+                  Trusted Sellers
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Sellers */}
+          <div>
+            <h4 className="font-semibold mb-4 text-amber-400">
+              For Sellers
+            </h4>
+            <ul className="space-y-2 text-gray-400 text-sm">
+              <li>
+                <a href="/signup" className="hover:text-amber-400 transition">
+                  Join Marketplace
+                </a>
+              </li>
+              <li>
+                <a href="/seller/dashboard" className="hover:text-amber-400 transition">
+                  Seller Dashboard
+                </a>
+              </li>
+              <li>
+                <a href="/seller/products" className="hover:text-amber-400 transition">
+                  Manage Listings
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h4 className="font-semibold mb-4 text-amber-400">
+              Contact
+            </h4>
+
+            <div className="space-y-3 text-gray-400 text-sm">
+
+              <div className="flex items-center gap-2 hover:text-amber-400 transition">
+                <Mail size={16} />
+                support@flockpilot.com
+              </div>
+
+              <div className="flex items-center gap-2 hover:text-amber-400 transition">
+                <Phone size={16} />
+                +92 300 1234567
+              </div>
+
+              <p className="text-gray-500 text-xs pt-2">
+                Faisalabad, Pakistan
+              </p>
+
+            </div>
+          </div>
+
+        </div>
+
+        {/* Bottom */}
+        <div className="border-t border-gray-800 mt-10 pt-6 text-center text-gray-500 text-sm">
+          <p>
+            © {new Date().getFullYear()} 
+            <span className="text-amber-400 font-medium"> FlockPilot </span>
+            Poultry Marketplace. All rights reserved.
+          </p>
+        </div>
+
+      </div>
+    </footer>
+  );
 };
 
 export default Footer;

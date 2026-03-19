@@ -21,7 +21,7 @@ const sendEmail = async (options) => {
         console.log('✅ SMTP Connection Established');
 
         const mailOptions = {
-            from: `HOMEZaika <${process.env.EMAIL_USER}>`,
+            from: `FlockPilot <${process.env.EMAIL_USER}>`,
             to: options.email,
             subject: options.subject,
             html: options.html

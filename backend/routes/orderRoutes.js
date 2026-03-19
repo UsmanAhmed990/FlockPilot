@@ -6,9 +6,9 @@ const { upload } = require('../utils/upload');
 
 router.post('/new', upload.single('paymentScreenshot'), createOrder);
 router.get('/me', isAuthenticated, getMyOrders);
-router.get('/chef', isAuthenticated, authorizeRoles('chef'), getChefOrders);
+router.get('/chef', isAuthenticated, authorizeRoles('seller', 'chef'), getChefOrders);
 router.get('/admin/all', isAuthenticated, authorizeRoles('admin'), getAdminAllOrders);
-router.put('/:id', isAuthenticated, authorizeRoles('chef', 'admin'), updateOrderStatus);
+router.put('/:id', isAuthenticated, authorizeRoles('chef', 'seller', 'admin'), updateOrderStatus);
 router.put('/verify/:id', isAuthenticated, authorizeRoles('admin'), verifyPayment);
 router.put('/reject/:id', isAuthenticated, authorizeRoles('admin'), rejectPayment);
 

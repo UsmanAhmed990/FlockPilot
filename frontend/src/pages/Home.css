@@ -1,0 +1,29 @@
+@media screen and (max-width :991px) and (min-width :768px) {
+    .home-main {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        padding-top: 40px !important;
+
+    }
+
+    /* .egg-main {
+        display: flex !important;
+        justify-content: space-around !important;
+    } */
+
+
+
+    .main-text {
+        font-size: 56px !important;
+        font-weight: 700 !important;
+    }
+    .order-btn{
+        padding: 12px !important  ;
+         font-size: 18px !important;
+        font-weight: 700 !important;
+    }
+    h2{
+          font-size: 42px !important;
+        font-weight: 700 !important;
+    }
+}

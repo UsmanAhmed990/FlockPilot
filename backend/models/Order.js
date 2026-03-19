@@ -29,7 +29,8 @@ const orderSchema = new mongoose.Schema({
         city: String,
         zip: String
     },
-    chef: { type: mongoose.Schema.Types.ObjectId, ref: 'Chef' }, // If order is specific to one chef/restaurant context
+    seller: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    isReviewed: { type: Boolean, default: false },
     createdAt: { type: Date, default: Date.now }
 });
 

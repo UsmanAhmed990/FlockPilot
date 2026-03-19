@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import axios from '../utils/axios';
-import { Package, Clock, CheckCircle, XCircle, Truck } from 'lucide-react';
-
+import { Package, Clock, CheckCircle, XCircle, Truck, Star } from 'lucide-react';
 const Orders = () => {
     const { user } = useSelector(state => state.auth);
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [reviewingOrderId, setReviewingOrderId] = useState(null);
+    const [rating, setRating] = useState(5);
+    const [comment, setComment] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
         fetchOrders();
@@ -20,6 +23,32 @@ const Orders = () => {
             console.error('Error fetching orders:', error);
         } finally {
             setLoading(false);
+        }
+    };
+
+    const handleReviewSubmit = async (orderId, chefId) => {
+        if (!rating) {
+            alert('Please select a rating');
+            return;
+        }
+        setIsSubmitting(true);
+        try {
+            await axios.post('/api/review/seller', {
+                orderId,
+                chefId,
+                rating,
+                comment
+            });
+            alert('Rating & Review submitted successfully! Thank you.');
+            setReviewingOrderId(null);
+            setRating(5);
+            setComment('');
+            fetchOrders(); // Refresh to hide review box
+        } catch (error) {
+            console.error('Review Error:', error);
+            alert(error.response?.data?.message || 'Failed to submit review');
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -141,6 +170,73 @@ const Orders = () => {
                                         <p className="text-xs text-gray-500">{order.paymentMethod}</p>
                                     </div>
                                 </div>
+
+                                {/* Review Section */}
+                                {order.status === 'Delivered' && !order.isReviewed && (
+                                    <div className="mt-6 pt-6 border-t border-dashed border-gray-200">
+                                        {reviewingOrderId === order._id ? (
+                                            <div className="bg-gray-50 p-6 rounded-2xl animate-fade-in border border-amber-100">
+                                                <h4 className="font-bold text-gray-900 mb-4">Rate your Seller experience</h4>
+                                                
+                                                <div className="flex gap-2 mb-4">
+                                                    {[1, 2, 3, 4, 5].map((star) => (
+                                                        <button
+                                                            key={star}
+                                                            onClick={() => setRating(star)}
+                                                            className="focus:outline-none transition-transform active:scale-90"
+                                                        >
+                                                            <Star 
+                                                                className={`w-8 h-8 ${star <= rating ? 'fill-amber-400 text-amber-400' : 'text-gray-300'}`}
+                                                            />
+                                                        </button>
+                                                    ))}
+                                                </div>
+
+                                                <textarea
+                                                    className="w-full p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-400 focus:border-transparent outline-none mb-4"
+                                                    placeholder="Share your feedback about the seller and poultry quality..."
+                                                    rows="3"
+                                                    value={comment}
+                                                    onChange={(e) => setComment(e.target.value)}
+                                                ></textarea>
+
+                                                <div className="flex gap-3">
+                                                    <button
+                                                        onClick={() => handleReviewSubmit(order._id, order.chef)}
+                                                        disabled={isSubmitting}
+                                                        className="px-6 py-2 bg-amber-500 text-black font-bold rounded-lg hover:bg-amber-600 transition disabled:opacity-50"
+                                                    >
+                                                        {isSubmitting ? 'Submitting...' : 'Submit Review'}
+                                                    </button>
+                                                    <button
+                                                        onClick={() => setReviewingOrderId(null)}
+                                                        className="px-6 py-2 text-gray-600 font-medium hover:text-gray-900"
+                                                    >
+                                                        Cancel
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center">
+                                                        <Star className="w-6 h-6 text-amber-500 fill-amber-500" />
+                                                    </div>
+                                                    <div>
+                                                        <p className="font-bold text-gray-900">How was the poultry?</p>
+                                                        <p className="text-sm text-gray-500">Rate this seller to help others.</p>
+                                                    </div>
+                                                </div>
+                                                <button
+                                                    onClick={() => setReviewingOrderId(order._id)}
+                                                    className="w-full md:w-auto px-8 py-2 border-2 border-amber-500 text-amber-600 font-bold rounded-xl hover:bg-amber-500 hover:text-black transition-colors"
+                                                >
+                                                    Rate Seller
+                                                </button>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
                             </div>
                         ))}
                     </div>

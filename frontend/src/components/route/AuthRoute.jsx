@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 
 const AuthRoute = ({ children }) => {
     const { isAuthenticated, loading } = useSelector(state => state.auth);
+    const hasAdminSession = !!sessionStorage.getItem('admin_passcode');
 
     if (loading) {
         return (
@@ -12,7 +13,7 @@ const AuthRoute = ({ children }) => {
         );
     }
 
-    if (!isAuthenticated) {
+    if (!isAuthenticated && !hasAdminSession) {
         return <Navigate to="/login" />;
     }
 

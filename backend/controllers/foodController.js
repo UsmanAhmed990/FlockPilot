@@ -1,59 +1,36 @@
 const Food = require('../models/Food');
-const Chef = require('../models/Chef');
+const User = require('../models/User');
+const { createAdminNotification } = require('./adminNotificationController');
 
-// Add Food Item
 // Add Food Item
 exports.addFood = async (req, res) => {
     try {
-        let chefId;
+        const { userId } = req.body; // Frontend can send userId in body as requested
+        const user = req.user; // Populated by isAuthenticated middleware
 
-        // Handle Guest Admin Case
-        if (req.user.id === 'guest_admin' || req.user.role === 'admin') {
-            // Find or create a system chef profile for admin
-            // We need a valid ObjectId for the 'chef' field in Food model
-            // Let's try to find a chef profile with a placeholder user ID (or skip user lookup)
-            // Ideally, we should have a real Admin User in DB. 
-            // Workaround: Find ANY chef to assign or create a dummy one.
-
-            // Since we can't query Chef by 'guest_admin' (string), let's find a chef by name "Admin Chef"
-            let adminChef = await Chef.findOne({ businessName: 'Home Zaika Admin' });
-
-            if (!adminChef) {
-                // Create a dummy chef for admin operations
-                // We need a valid ObjectId for 'user' too if Chef schema requires it.
-                // Chef schema: user: ObjectId ref User.
-                // We might need to create a dummy User first?
-                // Or just cast a dummy valid ObjectId if we can?
-                // Let's create a placeholder chef linked to the first user found or a specific admin user if exists.
-
-                // Hack: Use an arbitrary valid ObjectId for user if we don't have a real admin user.
-                // MongoDB ObjectIds are 24 hex chars. 
-                const dummyUserId = "000000000000000000000000";
-
-                adminChef = await Chef.create({
-                    user: dummyUserId, // This might fail if User requires existence check, but typically Ref doesn't enforce FK constraint strictly in Mongoose unless populated
-                    businessName: "Home Zaika Admin",
-                    specialty: "General",
-                    isApproved: true
-                });
-            }
-            chefId = adminChef._id;
-
-        } else {
-            const chef = await Chef.findOne({ user: req.user.id });
-            if (!chef) {
-                return res.status(404).json({ message: 'Chef profile not found' });
-            }
-            chefId = chef._id;
+        // 1. Simple Validation (Role must be seller)
+        if (user.role !== 'seller' && user.role !== 'admin') {
+            return res.status(403).json({ message: 'Access denied. Only sellers can add products.' });
         }
 
+        // 2. Verification Check (Approved by Admin)
+        if (user.role === 'seller' && !user.isVerified) {
+            return res.status(403).json({ message: 'Access denied. Your merchant account is pending admin verification.' });
+        }
+
+        // 3. Create Product linked directly to User
         const food = await Food.create({
             ...req.body,
-            chef: chefId
+            seller: user._id
         });
+
+        // Optional: Admin Notification
+        const sellerInfo = `${user.name || 'Seller'} (${user.email})`;
+        await createAdminNotification(req, 'product', `New product added: ${food.name} by ${sellerInfo}`);
 
         res.status(201).json({ success: true, food });
     } catch (error) {
+        console.error("Add Food Error:", error);
         res.status(500).json({ message: error.message });
     }
 };
@@ -66,12 +43,9 @@ exports.updateFood = async (req, res) => {
             return res.status(404).json({ message: 'Food item not found' });
         }
 
-        // Allow Admin to bypass ownership check
-        if (req.user.id !== 'guest_admin' && req.user.role !== 'admin') {
-            const chef = await Chef.findOne({ user: req.user.id });
-            if (!chef || food.chef.toString() !== chef._id.toString()) {
-                return res.status(403).json({ message: 'Not authorized to update this food' });
-            }
+        // Ownership check
+        if (req.user.role !== 'admin' && food.seller.toString() !== req.user._id.toString()) {
+            return res.status(403).json({ message: 'Not authorized to update this food' });
         }
 
         food = await Food.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
@@ -89,12 +63,9 @@ exports.deleteFood = async (req, res) => {
             return res.status(404).json({ message: 'Food item not found' });
         }
 
-        // Allow Admin to bypass ownership check
-        if (req.user.id !== 'guest_admin' && req.user.role !== 'admin') {
-            const chef = await Chef.findOne({ user: req.user.id });
-            if (!chef || food.chef.toString() !== chef._id.toString()) {
-                return res.status(403).json({ message: 'Not authorized to delete this food' });
-            }
+        // Ownership check
+        if (req.user.role !== 'admin' && food.seller.toString() !== req.user._id.toString()) {
+            return res.status(403).json({ message: 'Not authorized to delete this food' });
         }
 
         await food.deleteOne();
@@ -104,10 +75,10 @@ exports.deleteFood = async (req, res) => {
     }
 };
 
-// Get All Foods (with filters)
+// Get All Foods
 exports.getAllFoods = async (req, res) => {
     try {
-        const { keyword, category, dietType } = req.query;
+        const { keyword, category } = req.query;
         let query = { available: true };
 
         if (keyword) {
@@ -116,11 +87,8 @@ exports.getAllFoods = async (req, res) => {
         if (category) {
             query.category = category;
         }
-        if (dietType) {
-            query.dietType = dietType;
-        }
 
-        const foods = await Food.find(query).populate('chef');
+        const foods = await Food.find(query).populate('seller', 'name email phone');
         res.status(200).json({ success: true, foods });
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -130,7 +98,7 @@ exports.getAllFoods = async (req, res) => {
 // Get Single Food
 exports.getFoodDetails = async (req, res) => {
     try {
-        const food = await Food.findById(req.params.id).populate('chef');
+        const food = await Food.findById(req.params.id).populate('seller', 'name email phone');
         if (!food) {
             return res.status(404).json({ message: 'Food not found' });
         }
@@ -140,11 +108,16 @@ exports.getFoodDetails = async (req, res) => {
     }
 };
 
-// Get Chef's Menu (Public)
-exports.getChefMenu = async (req, res) => {
+// Get Seller's Products (Directly by User ID)
+exports.getSellerFoods = async (req, res) => {
     try {
-        const foods = await Food.find({ chef: req.params.chefId, available: true });
-        res.status(200).json({ success: true, foods });
+        const userId = req.user._id;
+        const foods = await Food.find({ seller: userId }).sort({ createdAt: -1 });
+        
+        res.status(200).json({
+            success: true,
+            foods
+        });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

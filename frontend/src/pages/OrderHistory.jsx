@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../utils/axios";
 
 const OrderHistory = () => {
   const [orders, setOrders] = useState([]);
@@ -7,8 +7,13 @@ const OrderHistory = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const { data } = await axios.get("/api/orders/my");
-        setOrders(data);
+        const userId = localStorage.getItem('userId');
+        const { data } = await axios.get("/api/order/me", {
+          headers: {
+            'x-user-id': userId
+          }
+        });
+        setOrders(data.orders || []);
       } catch (error) {
         console.error(error);
       }
@@ -52,14 +57,14 @@ const OrderCard = ({ order }) => {
 
       {order.items.map(item => (
         <OrderItem
-          key={item.foodId}
+          key={item.food || item._id}
           item={item}
           orderStatus={order.status}
         />
       ))}
 
       <div className="text-right font-bold mt-4">
-        Total: Rs. {order.totalPrice}
+        Total: Rs. {order.totalAmount}
       </div>
     </div>
   );
@@ -68,30 +73,15 @@ const OrderCard = ({ order }) => {
 /* ---------------- ORDER ITEM ---------------- */
 
 const OrderItem = ({ item, orderStatus }) => {
-  const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
-  const [rated, setRated] = useState(false);
   const [reviewed, setReviewed] = useState(false);
-
-  const submitRating = async (value) => {
-    try {
-      await axios.post("/api/ratings", {
-        foodId: item.foodId,
-        rating: value,
-      });
-      setRating(value);
-      setRated(true);
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const submitReview = async () => {
     if (!review) return;
 
     try {
       await axios.post("/api/reviews", {
-        foodId: item.foodId,
+        foodId: item.food || item._id,
         review,
       });
       setReviewed(true);
@@ -112,33 +102,9 @@ const OrderItem = ({ item, orderStatus }) => {
         <p className="font-bold">Rs. {item.price}</p>
       </div>
 
-      {/* ⭐ RATING */}
+      {/* 📝 REMARKS / FEEDBACK */}
       {orderStatus === "Delivered" && (
         <div className="mt-3">
-          <div className="flex gap-1">
-            {[1, 2, 3, 4, 5].map(star => (
-              <button
-                key={star}
-                disabled={rated}
-                onClick={() => submitRating(star)}
-                className={`text-2xl ${
-                  star <= rating
-                    ? "text-yellow-400"
-                    : "text-gray-300"
-                }`}
-              >
-                ★
-              </button>
-            ))}
-          </div>
-
-          {rated && (
-            <p className="text-sm text-green-600 mt-1">
-              Rating submitted ✔
-            </p>
-          )}
-
-          {/* 📝 REVIEW */}
           <textarea
             className="w-full border rounded-lg p-2 text-sm mt-3"
             placeholder="Write your remarks (optional)..."
@@ -152,12 +118,12 @@ const OrderItem = ({ item, orderStatus }) => {
             disabled={reviewed}
             className="mt-2 bg-blue-600 text-white px-4 py-1 rounded-lg text-sm"
           >
-            Submit Review
+            Submit Feedback
           </button>
 
           {reviewed && (
             <p className="text-green-600 text-sm mt-1">
-              Review submitted ✔
+              Feedback submitted ✔
             </p>
           )}
         </div>

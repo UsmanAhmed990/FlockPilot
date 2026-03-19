@@ -11,7 +11,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
     cors: {
-        origin: "*", // Allow all origins
+        origin: ["http://localhost:5173", "http://127.0.0.1:5173"],
         methods: ["GET", "POST"],
         credentials: true
     }
@@ -51,27 +51,32 @@ app.use('/uploads', express.static(require('path').join(__dirname, 'uploads')));
 
 // Routes
 const authRoutes = require('./routes/authRoutes');
-const chefRoutes = require('./routes/chefRoutes');
 const foodRoutes = require('./routes/foodRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const chatRoutes = require('./routes/chatRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
 
+const notificationRoutes = require('./routes/notificationRoutes');
+const adminNotificationRoutes = require('./routes/adminNotificationRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 app.use('/api/auth', authRoutes);
-app.use('/api/chef', chefRoutes);
 app.use('/api/food', foodRoutes);
 app.use('/api/order', orderRoutes);
 app.use('/api/chat', chatRoutes);
-app.use('/api', reviewRoutes); // Ratings/Reviews endpoints
+app.use('/api/notifications', notificationRoutes);
+app.use('/api/admin-notifications', adminNotificationRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/reviews', reviewRoutes); // More specific plural route first
+app.use('/api/review', reviewRoutes);  // Singular route second
 
 app.get('/', (req, res) => {
-    res.send('Home Ziaka Backend Running');
+    res.send(' Backend Running');
 });
 
 // Database Connection with Retry Logic
 const connectDB = async () => {
     try {
-        const conn = await mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/homeziaka', {
+        const conn = await mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/FlockPilot', {
             serverSelectionTimeoutMS: 30000, // Increased to 30 seconds
             socketTimeoutMS: 45000,
             family: 4 // Force IPv4
@@ -84,7 +89,7 @@ const connectDB = async () => {
         console.log('\n---------------------------------------------------------');
         console.log('🛑 DATABASE ACCESS DENIED');
         console.log('To fix this, go to MongoDB Atlas -> Network Access and add:');
-        console.log('👉 IP Address: 103.47.181.41');
+        console.log('👉 IP Address: 154.80.32.84');
         console.log('OR add 0.0.0.0/0 to allow access from anywhere.');
         console.log('---------------------------------------------------------\n');
 

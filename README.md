@@ -48,7 +48,7 @@ Register via `/signup` and select your role.
 Create `backend/.env`:
 ```
 PORT=5020
-MONGO_URI=mongodb://localhost:27017/homeziaka
+MONGO_URI=mongodb://localhost:27017/FlockPilot
 SESSION_SECRET=your_secret_key
 ```
 

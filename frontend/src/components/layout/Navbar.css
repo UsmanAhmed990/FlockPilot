@@ -1,0 +1,38 @@
+@media screen and (max-width :991px) and (min-width :768px) {
+    .seller-btn {
+        padding: 8px !important;
+        border-radius: 8px !important;
+        font-weight: 400;
+        font-size: 13px !important;
+        white-space: nowrap;
+    }
+
+    #admin-btn {
+        padding: 6px !important;
+        border-radius: 6px !important;
+        font-weight: 400;
+        font-size: 13px !important;
+        white-space: nowrap;
+
+    }
+
+    .navlinks-gap {
+        gap: 18px !important;
+    }
+
+    .over-btn {
+        padding: 6px !important;
+        font-weight: 400 !important;
+        font-size: 13px !important;
+
+    }
+
+    .over-p {
+        font-weight: 500 !important;
+        font-size: 13px !important;
+    }
+
+    .flock-p {
+        font-size: 22px !important;
+    }
+}

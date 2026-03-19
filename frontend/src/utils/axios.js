@@ -8,10 +8,14 @@ axios.defaults.withCredentials = true;
 
 // Add interceptor to inject admin passcode and user identification
 axios.interceptors.request.use((config) => {
-    // Admin Passcode
+    // Admin Passcode & Email
     const passcode = sessionStorage.getItem('admin_passcode');
+    const adminEmail = sessionStorage.getItem('admin_email');
     if (passcode) {
         config.headers['X-Admin-Passcode'] = passcode;
+    }
+    if (adminEmail) {
+        config.headers['X-Admin-Email'] = adminEmail;
     }
 
     // Simple User Identification (localStorage)

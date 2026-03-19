@@ -59,6 +59,10 @@ const authSlice = createSlice({
             state.user = null;
             state.error = null;
             localStorage.removeItem('user');
+        },
+        updateProfile: (state, action) => {
+            state.user = { ...state.user, ...action.payload };
+            localStorage.setItem('user', JSON.stringify(state.user));
         }
     },
     extraReducers: (builder) => {
@@ -110,5 +114,5 @@ console.log('AuthSlice Initial State:', {
     isAuthenticated: !!localStorage.getItem('user')
 });
 
-export const { clearErrors, logout } = authSlice.actions;
+export const { clearErrors, logout, updateProfile } = authSlice.actions;
 export default authSlice.reducer;

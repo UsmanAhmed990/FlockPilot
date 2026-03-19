@@ -4,9 +4,13 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+
 @layer base {
   * {
     @apply antialiased;
+
   }
 
   html {
@@ -14,7 +18,9 @@
   }
 
   body {
-    @apply bg-gray-50 text-gray-900 font-sans;
+    @apply bg-black text-white font-sans;
+    font-family: 'Inter', system-ui, sans-serif !important;
+    overflow-x: hidden !important;
   }
 }
 
