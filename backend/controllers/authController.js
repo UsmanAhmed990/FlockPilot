@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const Chef = require('../models/Chef');
+const SellerCertificate = require('../models/SellerCertificate');
 const bcrypt = require('bcryptjs');
 const sendEmail = require('../utils/sendEmail');
 const { createAdminNotification } = require('./adminNotificationController');
@@ -52,6 +53,17 @@ exports.registerUser = async (req, res) => {
         if (role === 'chef' || role === 'seller') {
             Chef.create({ user: user._id }).catch(err => console.error('Chef create error:', err));
             createAdminNotification(req, 'signup', `New Seller registered: ${user.name} (${user.email}) - Shop: ${address}`).catch(() => { });
+
+            // Handle Certificate
+            if (req.file) {
+                SellerCertificate.create({
+                    sellerId: user._id,
+                    email: user.email,
+                    username: user.name,
+                    address: user.address,
+                    certificateUrl: `/uploads/certificates/${req.file.filename}`
+                }).catch(err => console.error('SellerCertificate create error:', err));
+            }
         } else {
             createAdminNotification(req, 'signup', `New Buyer registered: ${user.name || user.email} (${user.phone})`).catch(() => { });
         }
@@ -64,7 +76,7 @@ exports.registerUser = async (req, res) => {
                 <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; border: 1px solid #eee; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
                     <div style="background: linear-gradient(135deg, #f59e0b, #d97706); padding: 40px 20px; text-align: center;">
                         <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 800; letter-spacing: -0.5px;">FlockPilot</h1>
-                        <p style="color: #ffffff; opacity: 0.9; margin: 8px 0 0; font-size: 16px; font-weight: 500;">Fresh. Homemade. Delivered.</p>
+                        <p style="color: #ffffff; opacity: 0.9; margin: 8px 0 0; font-size: 16px; font-weight: 500;">Fresh..Fast..Delivered</p>
                     </div>
                     
                     <div style="padding: 40px 30px; color: #333; line-height: 1.6;">

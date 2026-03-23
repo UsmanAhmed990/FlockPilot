@@ -1,0 +1,41 @@
+@media screen and (max-width :575px) and (min-width :320px) {
+    .systemh1 {
+      font-size: 24px !important;
+      font-family: 'Inter';
+      line-height: 26px !important;
+    }
+    .tager{
+        padding: 8px !important;
+    }
+    .high{
+padding-inline: 20px !important;
+padding-block: 32px !important;
+    }
+    .realme{
+padding: 18px !important;
+    }
+    .ely{
+        padding: 16px !important;
+    }
+    .elyh2{
+        font-size: 18px !important;
+        line-height: 26px !important;
+    }
+    .ripon{
+        flex-direction: column !important;
+     
+    }
+    .rip-btn{
+        padding: 8px 12px !important;
+        margin-top: 14px !important;
+        font-size: 12px !important;
+    }
+    #quick{
+        margin-top: 20px !important;
+        padding: 10px !important;
+        flex-direction: column;
+    }
+    .node{
+        padding: 8px !important;
+    }
+}

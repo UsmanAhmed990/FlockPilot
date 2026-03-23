@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require('fs');
 
 // Create upload directory if it doesn't exist
-const uploadDir = path.join(__dirname, '../uploads/payments');
+const uploadDir = path.join(__dirname, '../uploads/certificates');
 if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true });
 }
@@ -19,19 +19,19 @@ const storage = multer.diskStorage({
     }
 });
 
-// File Filter (Images Only)
+// File Filter (Images and PDF Only)
 const fileFilter = (req, file, cb) => {
-    if (file.mimetype.startsWith('image')) {
+    if (file.mimetype.startsWith('image/') || file.mimetype === 'application/pdf') {
         cb(null, true);
     } else {
-        cb(new Error('Not an image! Please upload an image.'), false);
+        cb(new Error('Not an image or PDF! Please upload an image or PDF file.'), false);
     }
 };
 
 const upload = multer({
     storage: storage,
     fileFilter: fileFilter,
-    limits: { fileSize: 5 * 1024 * 1024 } // 5MB limit
+    limits: { fileSize: 10 * 1024 * 1024 } // 10MB limit
 });
 
 module.exports = { upload };

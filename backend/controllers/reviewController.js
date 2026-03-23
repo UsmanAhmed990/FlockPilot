@@ -73,6 +73,12 @@ exports.addReview = async (req, res) => {
                 food: foodId,
                 comment
             });
+
+            // Notify Seller
+            const food = await Food.findById(foodId);
+            if (food) {
+                await createNotification(req, food.seller, 'review', `New review on your product "${food.name}": "${comment}"`);
+            }
         }
         res.status(200).json({ success: true, review });
     } catch (error) {
@@ -109,6 +115,13 @@ exports.submitSellerReview = async (req, res) => {
         await order.save();
 
         await createAdminNotification(req, 'review', `New seller feedback from ${req.user.name}: "${comment}"`);
+
+        // Notify Seller
+        const ChefModel = require('../models/Chef');
+        const chef = await ChefModel.findById(chefId);
+        if (chef) {
+            await createNotification(req, chef.user, 'review', `New seller feedback from ${req.user.name}: "${comment}"`);
+        }
 
         res.status(201).json({ success: true, review });
     } catch (error) {

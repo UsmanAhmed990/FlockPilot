@@ -1,0 +1,19 @@
+@media screen and (max-width :575px) and (min-width :320px) {
+    .mai-seller {
+        padding: 30px 0 !important;
+    }
+    .sellerh1{
+        font-size: 28px !important;
+    }
+    .pend1{
+        padding: 10px !important;
+    }
+    .pend2{
+        padding: 10px !important;
+        
+    }
+    td{
+        padding-inline: 20px !important;
+    }
+    
+}

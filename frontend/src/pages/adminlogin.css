@@ -1,0 +1,29 @@
+@media screen and (max-width :575px) and (min-width :320px) {
+    .tag2 {
+        padding-inline: 10px !important;
+        margin-bottom: 8px !important;
+    }
+    .adminh1{
+        font-size: 32px !important;
+    }
+    .form-main{
+        padding: 20px 10px !important;
+    }
+    .admin-main-bar{
+        padding: 18px !important;
+    }
+    .inp23{
+        padding: 8px 8px 8px 40px !important;
+    }
+    .admin-btn{
+       
+        font-size: 12px !important;
+        width: 80% !important;
+        margin-inline: auto !important;
+        margin-top: 15px !important;
+    }
+    .p-last{
+        font-size: 10px !important;
+        margin-top: 14px !important;
+    }
+}

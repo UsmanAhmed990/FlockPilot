@@ -55,7 +55,7 @@ const Checkout = () => {
     0
   );
 
-  const deliveryFee = 150;
+  const deliveryFee = 0;
   const total = subtotal + deliveryFee;
 
   const handleSubmit = async (e) => {
@@ -205,7 +205,7 @@ const Checkout = () => {
                   className="bg-black border border-zinc-700 rounded-lg p-3 focus:border-amber-400 outline-none"
                 />
 
-  <input
+  {/* <input
                   type="text"
                   required
                   placeholder="Postal Code"
@@ -214,7 +214,7 @@ const Checkout = () => {
                     setAddress({ ...address, city: e.target.value })
                   }
                   className="bg-black border border-zinc-700 rounded-lg p-3 focus:border-amber-400 outline-none"
-                />
+                /> */}
 
 
               </div>
@@ -270,10 +270,10 @@ const Checkout = () => {
                   <span>Rs. {subtotal}</span>
                 </div>
 
-                <div className="flex justify-between text-gray-400">
+                {/* <div className="flex justify-between text-gray-400">
                   <span>Delivery Fee</span>
                   <span>Rs. {deliveryFee}</span>
-                </div>
+                </div> */}
 
                 <div className="border-t border-zinc-700 pt-4 flex justify-between text-xl font-bold">
 

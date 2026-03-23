@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { ShieldCheck, ArrowLeft, RefreshCw, Clock } from 'lucide-react';
 import axios from '../utils/axios';
+import './OTP.css';
 
 const VerifyOTP = () => {
     const [otp, setOtp] = useState(['', '', '', '', '', '']);
@@ -114,7 +115,7 @@ const VerifyOTP = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-black/90 py-12 px-4 relative overflow-hidden">
+        <div className="otp-main min-h-screen flex items-center justify-center bg-black/90 py-12 px-4 relative overflow-hidden">
             {/* Animated Background */}
             <div className="absolute inset-0 overflow-hidden">
                 <div className="absolute -top-40 -right-40 w-80 h-80 bg-amber-700 rounded-full opacity-20 blur-3xl animate-pulse"></div>
@@ -122,7 +123,7 @@ const VerifyOTP = () => {
             </div>
 
             <div className="max-w-md w-full space-y-8 relative z-10">
-                <div className="bg-black-900/90 backdrop-blur-lg p-10 rounded-2xl shadow-2xl border border-amber-600">
+                <div className="inner-oyp bg-black-900/90 backdrop-blur-lg p-10 rounded-2xl shadow-2xl border border-amber-600">
                     
                     {/* Header */}
                     <div className="text-center mb-8">
@@ -159,9 +160,9 @@ const VerifyOTP = () => {
 
                     {/* OTP Input Boxes */}
                     <form onSubmit={handleVerify} className="space-y-6">
-                        <div className="flex justify-center gap-3">
+                        <div className="dby flex justify-center gap-3">
                             {otp.map((digit, index) => (
-                                <input
+                                <input id="romans"
                                     key={index}
                                     ref={el => inputRefs.current[index] = el}
                                     type="text"
@@ -181,7 +182,7 @@ const VerifyOTP = () => {
                         <button
                             type="submit"
                             disabled={loading || timeLeft <= 0}
-                            className="w-full py-4 text-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed bg-gradient-to-r from-amber-500 to-amber-700 text-black font-bold rounded-xl hover:scale-105 transition-transform"
+                            className="otp-btn w-full py-4 text-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed bg-gradient-to-r from-amber-500 to-amber-700 text-black font-bold rounded-xl hover:scale-105 transition-transform"
                         >
                             {loading ? (
                                 <>

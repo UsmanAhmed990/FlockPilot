@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import axios from '../utils/axios';
 import socket from '../utils/socket';
 import { Users, CheckCircle, XCircle, Clock, Shield, Mail, Phone, Calendar } from 'lucide-react';
+import './approvals.css';
+
 
 const Approvals = () => {
     const [pendingSellers, setPendingSellers] = useState([]);
@@ -64,11 +66,11 @@ const Approvals = () => {
             <div className="max-w-6xl mx-auto">
                 <div className="flex items-center justify-between mb-10 border-b border-gray-800 pb-8">
                     <div className="flex items-center gap-4">
-                        <div className="p-4 bg-amber-500/10 rounded-2xl border border-amber-500/20">
+                        <div className="taghar p-4 bg-amber-500/10 rounded-2xl border border-amber-500/20">
                             <Shield className="w-8 h-8 text-amber-500" />
                         </div>
                         <div>
-                            <h1 className="text-4xl font-extrabold bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">
+                            <h1 className="tagh1 text-4xl font-extrabold bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">
                                 Seller Approvals
                             </h1>
                             <p className="text-gray-500 font-medium mt-1">Review and manage seller verification requests</p>
@@ -86,13 +88,13 @@ const Approvals = () => {
                     ) : (
                         pendingSellers.map((seller) => (
                             <div key={seller._id} className="bg-gray-900 border border-gray-800 rounded-3xl p-6 md:p-8 hover:border-amber-500/50 transition-all group">
-                                <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
+                                <div className="cardiff flex flex-col md:flex-row md:items-center justify-between gap-8">
                                     <div className="flex items-start gap-6">
-                                        <div className="w-16 h-16 rounded-2xl bg-amber-500 flex items-center justify-center text-black text-2xl font-black shadow-lg">
+                                        <div className="namer w-16 h-16 rounded-2xl bg-amber-500 flex items-center justify-center text-black text-2xl font-black shadow-lg">
                                             {seller.name.charAt(0).toUpperCase()}
                                         </div>
                                         <div>
-                                            <h2 className="text-2xl font-black uppercase italic tracking-tighter text-white group-hover:text-amber-400 transition-colors">
+                                            <h2 className="buttler-h2 text-2xl font-black uppercase italic tracking-tighter text-white group-hover:text-amber-400 transition-colors">
                                                 {seller.name}
                                             </h2>
                                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 mt-4 text-sm">
@@ -104,11 +106,11 @@ const Approvals = () => {
                                                     <Phone className="w-4 h-4 text-amber-500" />
                                                     <span className="font-bold">{seller.phone}</span>
                                                 </div>
-                                                <div className="flex items-center gap-2 text-gray-400">
+                                                <div className=" flex items-center gap-2 text-gray-400">
                                                     <Calendar className="w-4 h-4 text-amber-500" />
                                                     <span className="font-bold">Joined: {new Date(seller.createdAt).toLocaleDateString()}</span>
                                                 </div>
-                                                <div className="flex items-center gap-2 text-gray-400">
+                                                <div className=" flex items-center gap-2 text-gray-400">
                                                     <Clock className="w-4 h-4 text-amber-500" />
                                                     <span className="font-bold uppercase text-[10px] tracking-widest px-2 py-0.5 bg-amber-500/10 rounded">Pending Verification</span>
                                                 </div>
@@ -116,21 +118,43 @@ const Approvals = () => {
                                         </div>
                                     </div>
 
-                                    <div className="flex items-center gap-4">
-                                        <button 
-                                            onClick={() => handleAction(seller._id, 'approve')}
-                                            className="flex-1 md:flex-none flex items-center justify-center gap-2 px-8 py-4 bg-green-600 hover:bg-green-700 text-white font-black uppercase tracking-widest rounded-2xl transition-all shadow-lg active:scale-95"
-                                        >
-                                            <CheckCircle className="w-5 h-5" />
-                                            Approve
-                                        </button>
-                                        <button 
-                                            onClick={() => handleAction(seller._id, 'reject')}
-                                            className="flex-1 md:flex-none flex items-center justify-center gap-2 px-8 py-4 bg-red-600/10 border border-red-600/20 text-red-500 hover:bg-red-600 hover:text-white font-black uppercase tracking-widest rounded-2xl transition-all active:scale-95"
-                                        >
-                                            <XCircle className="w-5 h-5" />
-                                            Reject
-                                        </button>
+                                    <div className="btn-team flex flex-col md:flex-row items-center gap-4">
+                                        {seller.certificate && (
+                                            <div className="flex items-center gap-3 mr-4">
+                                                <a 
+                                                    href={`${import.meta.env.VITE_API_URL || 'http://localhost:5020'}${seller.certificate.certificateUrl}`} 
+                                                    target="_blank" 
+                                                    rel="noopener noreferrer"
+                                                    className="px-4 py-2 bg-amber-500/10 border border-amber-500/20 text-amber-500 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-amber-500 hover:text-black transition-all"
+                                                >
+                                                    View Certificate
+                                                </a>
+                                                <a 
+                                                    href={`${import.meta.env.VITE_API_URL || 'http://localhost:5020'}${seller.certificate.certificateUrl}`} 
+                                                    download 
+                                                    target="_blank"
+                                                    className="px-4 py-2 bg-gray-800 border border-gray-700 text-gray-300 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-gray-700 transition-all"
+                                                >
+                                                    Download
+                                                </a>
+                                            </div>
+                                        )}
+                                        <div className="flex items-center gap-4">
+                                            <button 
+                                                onClick={() => handleAction(seller._id, 'approve')}
+                                                className="team flex-1 md:flex-none flex items-center justify-center gap-2 px-8 py-4 bg-green-600 hover:bg-green-700 text-white font-black uppercase tracking-widest rounded-2xl transition-all shadow-lg active:scale-95"
+                                            >
+                                                <CheckCircle className="w-5 h-5" />
+                                                Approve
+                                            </button>
+                                            <button 
+                                                onClick={() => handleAction(seller._id, 'reject')}
+                                                className="team flex-1 md:flex-none flex items-center justify-center gap-2 px-8 py-4 bg-red-600/10 border border-red-600/20 text-red-500 hover:bg-red-600 hover:text-white font-black uppercase tracking-widest rounded-2xl transition-all active:scale-95"
+                                            >
+                                                <XCircle className="w-5 h-5" />
+                                                Reject
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -34,7 +34,7 @@ const Home = () => {
         </div>
 
         {/* Heading */}
-        <h1 className="main-text text-5xl md:text-7xl font-bold leading-tight">
+        <h1  style={{lineHeight:"80px"}} className="main-text text-5xl md:text-7xl font-bold leading-tight">
 
           Fresh
           <span className="main-text block bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">
@@ -48,7 +48,7 @@ const Home = () => {
         </h1>
 
         {/* Description */}
-        <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-xl">
+        <p className="prem text-lg md:text-xl text-gray-300 leading-relaxed max-w-xl">
           Buy premium quality chicken, wings and farm eggs directly from
           trusted poultry sellers.
         </p>
@@ -59,7 +59,7 @@ const Home = () => {
 
           <Link
             to="/browse"
-            className="group bg-gradient-to-r from-amber-400 to-amber-600 text-black px-8 py-4 rounded-xl font-bold hover:scale-105 transition flex items-center justify-center gap-2 shadow-xl"
+            className="exp group bg-gradient-to-r from-amber-400 to-amber-600 text-black px-8 py-4 rounded-xl font-bold hover:scale-105 transition flex items-center justify-center gap-2 shadow-xl"
           >
             Explore Chicken
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform"/>
@@ -104,24 +104,8 @@ const Home = () => {
             className="rounded-3xl shadow-2xl border border-white/10 hover:scale-105 transition duration-500"
           />
 
-          {/* Floating Fresh Badge */}
-
-          <div className="absolute -bottom-6 -left-6 bg-zinc-900 border border-amber-400/30 p-4 rounded-2xl shadow-xl">
-
-            <div className="flex items-center gap-3">
-
-              <div className="bg-amber-400 text-black p-3 rounded-xl">
-                <Heart className="w-6 h-6"/>
-              </div>
-
-              <div>
-                <div className="font-bold text-white">Farm Fresh</div>
-                <div className="text-sm text-gray-400">100% Quality Chicken</div>
-              </div>
-
-            </div>
-
-          </div>
+         
+       
 
         </div>
 
@@ -142,13 +126,13 @@ const Home = () => {
 
 
             {/* Features Section */}
-            <div className="py-20 bg-black text-white">
+            <div className="why py-20 bg-black text-white">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-    <div className="text-center mb-16">
-      <h2 className="text-4xl md:text-5xl font-bold mb-4">
+    <div className="try text-center mb-16">
+      <h2 className="try text-4xl md:text-5xl font-bold mb-4">
         Why Choose
-        <span className="text-amber-400 ml-2">FlockPilot</span>?
+        <span  className="try text-amber-400 ml-2">FlockPilot</span>?
       </h2>
 
       <p className="text-gray-400 text-lg max-w-2xl mx-auto">
@@ -215,7 +199,7 @@ const Home = () => {
 
 
            {/* Chicken Categories Section */}
-<div className="py-20 bg-black">
+<div className="why py-20 bg-black">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div className="text-center mb-16">
       <h2 className="text-4xl md:text-5xl text-amber-500 font-bold mb-4">Our Chicken Categories</h2>

@@ -43,11 +43,13 @@ const NotificationBell = () => {
         fetchNotifications();
 
         // Join personal room for real-time notifications
-        socket.emit('join', user._id || user.id);
+        const roomId = user._id || user.id;
+        console.log('NotificationBell: Joining room:', roomId);
+        socket.emit('join', roomId);
 
         // Listen for real-time notifications
         socket.on('notification', (newNotif) => {
-            console.log('Real-time notification received:', newNotif);
+            console.log('NotificationBell: Real-time notification received:', newNotif);
             setNotifications(prev => [newNotif, ...prev]);
             setUnreadCount(prev => prev + 1);
             

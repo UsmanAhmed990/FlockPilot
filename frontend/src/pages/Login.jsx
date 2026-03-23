@@ -2,7 +2,10 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, clearErrors } from '../features/authSlice';
 import { useNavigate, Link } from 'react-router-dom';
-import { Mail, Lock, LogIn, Sparkles, User, ChefHat } from 'lucide-react';
+import { Mail, Lock, LogIn, Sparkles, User, ChefHat, Shield } from 'lucide-react';
+import './login.css';
+
+
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -34,25 +37,25 @@ const Login = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-black/90 py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div className=" min-h-screen flex items-center justify-center bg-black/90 py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Animated Background */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className=" absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-amber-700 rounded-full opacity-20 blur-3xl animate-pulse-slow"></div>
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-amber-500 rounded-full opacity-20 blur-3xl animate-pulse-slow"></div>
       </div>
 
       <div className="max-w-md w-full space-y-8 relative z-10 animate-scale-in">
         {/* Card */}
-        <div className="bg-black-900/90 backdrop-blur-lg p-10 rounded-2xl shadow-2xl border border-amber-600">
+        <div className="login-box bg-black-900/90 backdrop-blur-lg p-10 rounded-2xl shadow-2xl border border-amber-600">
           {/* Header */}
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-amber-500 to-amber-700 rounded-2xl mb-4 shadow-lg">
+          <div className="shell text-center mb-8">
+            <div className="login-bbx inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-amber-500 to-amber-700 rounded-2xl mb-4 shadow-lg">
               <LogIn className="w-8 h-8 text-white" />
             </div>
-            <h2 className="text-3xl font-bold text-white">
+            <h2 className="wel text-3xl font-bold text-white">
               Welcome Back!
             </h2>
-            <p className="mt-2 text-gray-300">Login to continue to FlockPilot Marketplace</p>
+            <p className="wel-p mt-2 text-gray-300">Login to continue to FlockPilot Marketplace</p>
           </div>
 
           {/* Error Message */}
@@ -66,8 +69,8 @@ const Login = () => {
           <form className="space-y-6" onSubmit={submitHandler}>
             {/* Role Selection */}
             <div className="mb-6">
-              <div className="grid grid-cols-2 gap-4">
-                <button
+              <div className="grid grid-cols-3 gap-4">
+                <button id='login-bar'
                   type="button"
                   onClick={() => setRole('buyer')}
                   className={`p-4 rounded-xl border-2 transition-all duration-300 ${
@@ -76,12 +79,12 @@ const Login = () => {
                       : 'border-gray-800 hover:border-amber-400 text-white'
                   }`}
                 >
-                  <User className={`w-6 h-6 mx-auto mb-2 ${role === 'buyer' ? 'text-black' : 'text-amber-400'}`} />
+                  <User  className={`w-6 h-6 mx-auto mb-2 ${role === 'buyer' ? 'text-black' : 'text-amber-400'}`} />
                   <div className={`text-[10px] font-black uppercase tracking-widest ${role === 'buyer' ? 'text-black' : 'text-white'}`}>
                     Login as Buyer
                   </div>
                 </button>
-                <button
+                <button id='login-bar2'
                   type="button"
                   onClick={() => setRole('seller')}
                   className={`p-4 rounded-xl border-2 transition-all duration-300 ${
@@ -93,6 +96,16 @@ const Login = () => {
                   <ChefHat className={`w-6 h-6 mx-auto mb-2 ${role === 'seller' ? 'text-black' : 'text-amber-400'}`} />
                   <div className={`text-[10px] font-black uppercase tracking-widest ${role === 'seller' ? 'text-black' : 'text-white'}`}>
                     Login as Seller
+                  </div>
+                </button>
+                <button id='login-bar3'
+                  type="button"
+                  onClick={() => navigate('/admin/login')}
+                  className="p-4 rounded-xl border-2 transition-all duration-300 border-gray-800 hover:border-amber-400 text-white"
+                >
+                  <Shield className="w-6 h-6 mx-auto mb-2 text-amber-400" />
+                  <div className="text-[10px] font-black uppercase tracking-widest text-white">
+                    Admin
                   </div>
                 </button>
               </div>
@@ -110,7 +123,7 @@ const Login = () => {
                 <input
                   type="email"
                   required
-                  className="input-field pl-12 bg-gray-800 text-white border border-gray-700 rounded-lg focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none w-full py-3"
+                  className="inp input-field pl-12 bg-gray-800 text-white border border-gray-700 rounded-lg focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none w-full py-3"
                   placeholder="you@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -130,7 +143,7 @@ const Login = () => {
                 <input
                   type="password"
                   required
-                  className="input-field pl-12 bg-gray-800 text-white border border-gray-700 rounded-lg focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none w-full py-3"
+                  className="inp input-field pl-12 bg-gray-800 text-white border border-gray-700 rounded-lg focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none w-full py-3"
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -149,7 +162,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-4 text-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed bg-gradient-to-r from-amber-500 to-amber-700 text-black font-bold rounded-xl hover:scale-105 transition-transform"
+              className="lgn w-full py-4 text-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed bg-gradient-to-r from-amber-500 to-amber-700 text-black font-bold rounded-xl hover:scale-105 transition-transform"
             >
               {loading ? (
                 <>
@@ -166,8 +179,8 @@ const Login = () => {
           </form>
 
           {/* Divider */}
-          <div className="mt-8 text-center">
-            <p className="text-gray-300">
+          <div className="  mt-8 text-center">
+            <p className="fbs text-gray-300">
               Don't have an account?{' '}
               <Link to="/signup" className="font-semibold text-amber-500 hover:text-amber-600 transition-colors">
                 Sign up now

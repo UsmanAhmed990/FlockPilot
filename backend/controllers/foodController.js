@@ -21,7 +21,7 @@ exports.addFood = async (req, res) => {
         // 3. Create Product linked directly to User
         const food = await Food.create({
             ...req.body,
-            seller: user._id
+            seller: user._id === 'guest_admin' ? userId : user._id
         });
 
         // Optional: Admin Notification
@@ -113,7 +113,7 @@ exports.getSellerFoods = async (req, res) => {
     try {
         const userId = req.user._id;
         const foods = await Food.find({ seller: userId }).sort({ createdAt: -1 });
-        
+
         res.status(200).json({
             success: true,
             foods

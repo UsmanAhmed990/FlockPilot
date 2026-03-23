@@ -67,7 +67,7 @@ const Navbar = () => {
         <div className="flex h-20 items-center justify-between">
 
           {/* Logo */}
-          <Link
+          <Link id='flock'
             to="/"
             className="flock-p text-2xl font-extrabold tracking-tight bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent hover:scale-105 transition-transform"
           >
@@ -225,14 +225,14 @@ const Navbar = () => {
   {/* User Auth & Greeting */}
             {!isAuthenticated ? (
               <div className="flex items-center gap-4">
-                <Link to="/login" className="text-white font-bold hover:text-amber-400 transition">Login</Link>
-                <Link to="/signup" className="px-5 py-2 rounded-full text-black font-extrabold bg-gradient-to-r from-amber-400 to-amber-600 hover:scale-105 transition-all shadow-lg active:scale-95">Signup</Link>
+                <Link to="/login" className="login-btn text-white font-bold hover:text-amber-400 transition">Login</Link>
+                <Link to="/signup" className=" signup-btn px-5 py-2 rounded-full text-black font-extrabold bg-gradient-to-r from-amber-400 to-amber-600 hover:scale-105 transition-all shadow-lg active:scale-95">Signup</Link>
               </div>
             ) : (
               <div className="flex items-center gap-4">
-              <div className="over-btn flex items-center gap-3 bg-gray-900 px-4 py-2 rounded-2xl border border-gray-800 shadow-2xl relative group/user">
+              <div className="oldham-grret over-btn flex items-center gap-3 bg-gray-900 px-4 py-2 rounded-2xl border border-gray-800 shadow-2xl relative group/user">
   
-  <div className="over-p w-8 h-8 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-black font-black text-xs shadow-[0_0_15px_rgba(245,158,11,0.3)] group-hover/user:rotate-12 transition-transform">
+  <div className="over-p user-show w-8 h-8 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-black font-black text-xs shadow-[0_0_15px_rgba(245,158,11,0.3)] group-hover/user:rotate-12 transition-transform">
     {user.name?.split(" ")[0]?.charAt(0).toUpperCase()}
   </div>
 
@@ -292,18 +292,18 @@ const Navbar = () => {
             <MobileLink to="/cart" onClick={setIsMenuOpen} icon={<ShoppingBag className="w-5 h-5 text-amber-400" />}>Cart ({cartItems.length})</MobileLink>
 
             {/* Notifications in Mobile */}
-            <div className="px-4 py-2">
+            {/* <div className="px-4 py-2">
               <p className="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2">Notifications</p>
               {isAuthenticated && user?.role === 'admin' ? (
                 <AdminNotificationMenu />
               ) : (
                 <NotificationBell />
               )}
-            </div>
+            </div> */}
 
             {/* SELLER ACCESS (Mobile) */}
             {isAuthenticated && (user.role === 'seller' || user.role === 'chef' || user.role === 'admin') && (
-              <div className="px-4 py-2">
+              <div style={{color:"white"}} className="px-4 py-2">
                 <p className="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2">Seller Tools</p>
                 <div className="flex flex-col gap-2">
                   <Link 
@@ -311,7 +311,7 @@ const Navbar = () => {
                     onClick={() => setIsMenuOpen(false)}
                     className="flex items-center gap-3 p-3 rounded-xl bg-gray-900 border border-gray-800 text-sm font-bold"
                   >
-                    <Plus className="w-4 h-4 text-amber-500" /> Add New Products
+                    <Plus className="w-4 h-4 text-amber-500 " /> Add New Products
                   </Link>
                   <Link 
                     to="/seller/dashboard" 
@@ -367,20 +367,20 @@ const Navbar = () => {
 
             {!isAuthenticated ? (
               <div className="grid grid-cols-2 gap-4 px-4 py-2">
-                <Link 
+                {/* <Link 
                   to="/login" 
                   onClick={() => setIsMenuOpen(false)}
                   className="flex items-center justify-center py-3 rounded-xl border border-gray-700 font-bold text-white hover:text-amber-400 transition"
                 >
                   Login
-                </Link>
-                <Link 
+                </Link> */}
+                {/* <Link 
                   to="/signup" 
                   onClick={() => setIsMenuOpen(false)}
                   className="flex items-center justify-center py-3 rounded-xl bg-amber-500 font-bold text-black hover:bg-amber-600 transition"
                 >
                   Sign Up
-                </Link>
+                </Link> */}
               </div>
             ) : (
               <div className="px-4 py-2">

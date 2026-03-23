@@ -1,0 +1,47 @@
+@media screen and (max-width :575px) and (min-width :320px) {
+    .login-box {
+        padding: 20px !important;
+    }
+
+    .login-bbx {
+        height: 50px !important;
+        width: 50px !important;
+    }
+
+    svg {
+        height: 20px !important;
+    }
+
+    .texter {
+        font-size: 26px !important;
+        font-family: 'Inter' !important;
+
+    }
+
+    #btn1,
+    #btn2,
+    #btn3 {
+        padding: 6px !important;
+        font-size: 8px !important;
+    }
+
+    .inp1,
+    .inp2,
+    .inp3,
+    .inp4 {
+        padding: 8px 8px 8px 40px !important;
+    }
+
+    .btn-signup {
+        padding: 8px !important;
+        width: 70% !important;
+        font-size: 10px !important;
+        margin: auto !important;
+        margin-top: 15px !important;
+    }
+
+    .p-ft {
+        margin-top: 16px !important;
+        font-size: 12px !important;
+    }
+}

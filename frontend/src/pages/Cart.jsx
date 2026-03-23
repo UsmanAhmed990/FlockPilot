@@ -5,6 +5,7 @@ import { Trash2, ArrowLeft, Plus, Minus, ShoppingCart, Star, MessageSquare } fro
 import { useEffect, useState } from "react";
 import axios from "../utils/axios";
 import socket from "../utils/socket";
+import './cart.css';
 
 const Cart = () => {
   const { cartItems } = useSelector((state) => state.cart);
@@ -71,7 +72,7 @@ const Cart = () => {
     0
   );
 
-  const deliveryFee = subtotal > 0 ? 150 : 0;
+  const deliveryFee = 0;
   const total = subtotal + deliveryFee;
 
   const handleQuantityChange = (food, newQuantity) => {
@@ -91,7 +92,7 @@ const Cart = () => {
 
   if (cartItems.length === 0) {
     return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center px-6">
+      <div  className="pt-5 min-h-screen bg-black text-white flex items-center justify-center px-6">
 
         <div className="text-center max-w-md">
 
@@ -99,11 +100,11 @@ const Cart = () => {
             <ShoppingCart size={46} />
           </div>
 
-          <h2 className="text-3xl font-bold mb-3">
+          <h2 className=" main-text2 text-3xl font-bold mb-3">
             Your Poultry Cart is Empty
           </h2>
 
-          <p className="text-gray-400 mb-8">
+          <p className="main-p text-gray-400 mb-8">
             Browse fresh chicken, wings and eggs from trusted sellers.
           </p>
 
@@ -118,7 +119,7 @@ const Cart = () => {
         
 
           {/* NEW FEEDBACK SUBMISSION SECTION */}
-          <div className="mt-20 max-w-2xl mx-auto bg-zinc-900 border border-zinc-800 p-8 rounded-3xl shadow-2xl animate-fade-in">
+          <div className="rate-main mt-20 max-w-2xl mx-auto bg-zinc-900 border border-zinc-800 p-8 rounded-3xl shadow-2xl animate-fade-in">
             <h3 className="text-2xl font-bold mb-2">Rate & Review</h3>
             <p className="text-gray-400 mb-6 italic text-sm">
               Tap the stars to rate your experience, then add your thoughts!
@@ -374,12 +375,12 @@ const Cart = () => {
                   </span>
                 </div>
 
-                <div className="flex justify-between text-gray-400">
+                {/* <div className="flex justify-between text-gray-400">
                   <span>Delivery Fee</span>
                   <span className="text-white font-semibold">
                     Rs. {deliveryFee}
                   </span>
-                </div>
+                </div> */}
 
                 <div className="border-t border-zinc-700 pt-4 flex justify-between text-xl font-bold">
 

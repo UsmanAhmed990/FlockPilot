@@ -1,0 +1,53 @@
+@media screen and (max-width :575px) and (min-width :320px) {
+    .login-box {
+        padding: 20px !important;
+    }
+
+    .login-bbx {
+        height: 50px !important;
+        width: 50px !important;
+    }
+
+    svg {
+        height: 20px !important;
+    }
+
+    .wel {
+        font-size: 24px !important;
+    }
+
+    .wel-p {
+        margin: 0 !important;
+        font-size: 14px !important;
+    }
+
+    .shell {
+        margin-bottom: 15px !important;
+    }
+
+    #login-bar,
+    #login-bar2 {
+        padding: 8px !important;
+        height: 80px !important;
+        width: 100px !important;
+        margin: auto !important;
+    }
+
+    .inp {
+        padding: 6px 6px 8px 50px !important;
+    }
+
+    .lgn {
+        padding: 4px 0 !important;
+        margin-top: 10px !important;
+        font-size: 13px !important;
+        width: 50% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    .fbs {
+        margin-top: 12px !important;
+        font-size: 12px !important;
+    }
+}

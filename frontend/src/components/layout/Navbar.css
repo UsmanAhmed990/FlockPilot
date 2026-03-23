@@ -36,3 +36,24 @@
         font-size: 22px !important;
     }
 }
+
+
+
+
+@media screen and (max-width :575px) and (min-width :320px) {
+    .signup-btn {
+        font-size: 15px !important;
+        padding: 5px 10px !important;
+
+    }
+
+    .oldham-grret {
+        padding: 6px 10px !important;
+        
+    }
+
+    .user-show {
+        display: none !important;
+
+    }
+}

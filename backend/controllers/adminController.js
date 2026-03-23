@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const Approval = require('../models/Approval');
+const SellerCertificate = require('../models/SellerCertificate');
 const sendEmail = require('../utils/sendEmail');
 
 // Get all pending sellers
@@ -8,11 +9,17 @@ exports.getPendingSellers = async (req, res) => {
         const sellers = await User.find({
             role: { $in: ['seller', 'chef'] },
             verificationStatus: 'pending'
-        }).sort({ createdAt: -1 });
+        }).sort({ createdAt: -1 }).lean();
+
+        // Attach certificates
+        const sellersWithCerts = await Promise.all(sellers.map(async (seller) => {
+            const certificate = await SellerCertificate.findOne({ sellerId: seller._id });
+            return { ...seller, certificate };
+        }));
 
         res.status(200).json({
             success: true,
-            sellers
+            sellers: sellersWithCerts
         });
     } catch (error) {
         res.status(500).json({ message: error.message });

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from '../utils/axios';
 import { Users, Search, Filter, ChevronLeft, ChevronRight, CheckCircle, XCircle, Shield, Mail, Phone, Calendar, Ban, LogIn, ExternalLink } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import './users.css';
 
 const AllUsers = () => {
     const [users, setUsers] = useState([]);
@@ -68,7 +69,7 @@ const AllUsers = () => {
     );
 
     return (
-        <div className="min-h-screen bg-black text-white py-12 px-4 md:px-8">
+        <div className="use-main min-h-screen bg-black text-white py-12 px-4 md:px-8">
             <div className="max-w-7xl mx-auto">
                 {/* Header Section */}
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
@@ -77,7 +78,7 @@ const AllUsers = () => {
                             <Users className="text-amber-500 w-8 h-8" />
                         </div>
                         <div>
-                            <h1 className="text-4xl font-black bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 bg-clip-text text-transparent tracking-tight">
+                            <h1 className="userh1 text-4xl font-black bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 bg-clip-text text-transparent tracking-tight">
                                 User Management
                             </h1>
                             <p className="text-gray-500 font-bold uppercase tracking-[0.2em] text-xs">
@@ -88,7 +89,7 @@ const AllUsers = () => {
                 </div>
 
                 {/* Filters Section */}
-                <div className="bg-gray-900/50 border border-gray-800 rounded-[2.5rem] p-6 mb-8 backdrop-blur-xl">
+                <div className=" fill bg-gray-900/50 border border-gray-800 rounded-[2.5rem] p-6 mb-8 backdrop-blur-xl">
                     <div className="flex flex-col md:flex-row gap-4">
                         <div className="flex-1 relative group">
                             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-amber-500 transition-colors" size={20} />
@@ -97,7 +98,7 @@ const AllUsers = () => {
                                 placeholder="Search by name or email..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full bg-black border border-gray-800 rounded-2xl py-4 pl-12 pr-4 text-gray-200 focus:outline-none focus:border-amber-500/50 transition-all font-medium"
+                                className="fillinps w-full bg-black border border-gray-800 rounded-2xl py-4 pl-12 pr-4 text-gray-200 focus:outline-none focus:border-amber-500/50 transition-all font-medium"
                             />
                         </div>
                         <div className="flex items-center gap-3 bg-black border border-gray-800 rounded-2xl p-2 px-4">
@@ -124,11 +125,11 @@ const AllUsers = () => {
                         <table className="w-full border-collapse">
                             <thead>
                                 <tr className="bg-gray-950/80 border-b border-gray-800/50">
-                                    <th className="py-6 px-8 text-left text-[11px] font-black uppercase tracking-[0.25em] text-gray-400">Identity</th>
-                                    <th className="py-6 px-8 text-left text-[11px] font-black uppercase tracking-[0.25em] text-gray-400">Contact Info</th>
-                                    <th className="py-6 px-8 text-left text-[11px] font-black uppercase tracking-[0.25em] text-gray-400">Account Status</th>
-                                    <th className="py-6 px-8 text-left text-[11px] font-black uppercase tracking-[0.25em] text-gray-400">Member Since</th>
-                                    <th className="py-6 px-8 text-right text-[11px] font-black uppercase tracking-[0.25em] text-gray-400">Management</th>
+                                    <th className="  py-6 px-8 text-left text-[11px] font-black uppercase tracking-[0.25em] text-gray-400">Identity</th>
+                                    <th className=" py-6 px-8 text-left text-[11px] font-black uppercase tracking-[0.25em] text-gray-400">Contact Info</th>
+                                    <th className=" py-6 px-8 text-left text-[11px] font-black uppercase tracking-[0.25em] text-gray-400">Account Status</th>
+                                    <th className=" py-6 px-8 text-left text-[11px] font-black uppercase tracking-[0.25em] text-gray-400">Member Since</th>
+                                    <th className=" py-6 px-8 text-right text-[11px] font-black uppercase tracking-[0.25em] text-gray-400">Management</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-800/30">
@@ -160,7 +161,7 @@ const AllUsers = () => {
                                                     {u.name?.charAt(0) || u.email.charAt(0).toUpperCase()}
                                                 </div>
                                                 <div>
-                                                    <p className="font-black text-gray-100 uppercase tracking-tight">{u.name || 'Anonymous'}</p>
+                                                    <p className="gg font-black text-gray-100 uppercase tracking-tight">{u.name || 'Anonymous'}</p>
                                                     <span className="text-[10px] font-black uppercase tracking-widest text-gray-500 px-2 py-0.5 bg-gray-950 rounded-lg">{u.role}</span>
                                                 </div>
                                             </div>

@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const { registerUser, loginUser, logoutUser, getUserProfile, getAdminAllUsers, forgotPassword, verifyOtp, resetPassword, verifyAdmin } = require('../controllers/authController');
 const { isAuthenticated, authorizeRoles } = require('../middleware/authMiddleware');
+const { upload } = require('../utils/upload');
 
-router.post('/register', registerUser);
+router.post('/register', upload.single('certificate'), registerUser);
 router.post('/login', loginUser);
 router.get('/logout', logoutUser);
 router.post('/verify-admin', verifyAdmin);

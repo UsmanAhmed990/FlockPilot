@@ -34,8 +34,14 @@ exports.createOrder = async (req, res) => {
         // Identify the seller of the first item
         let sellerId = null;
         if (items && items.length > 0) {
-            const food = await Food.findById(items[0].food);
-            if (food) sellerId = food.seller;
+            const foodId = typeof items[0].food === 'object' ? items[0].food._id : items[0].food;
+            const food = await Food.findById(foodId);
+            if (food) {
+                sellerId = food.seller;
+                console.log(`Order Creation: Identified Seller ID ${sellerId} from Food ID ${foodId}`);
+            } else {
+                console.warn(`Order Creation: Food ${foodId} not found, could not identify seller.`);
+            }
         }
 
         const order = await Order.create({
@@ -56,7 +62,7 @@ exports.createOrder = async (req, res) => {
         // Create Notification for the Seller
         if (sellerId) {
             await createNotification(req, sellerId, 'order_created', `New order from ${customerName || 'Customer'}.`);
-            
+
             // Emit to seller's real-time dashboard
             const io = req.app.get('socketio');
             if (io) {
@@ -110,7 +116,7 @@ exports.createOrder = async (req, res) => {
                             </div>
 
                             <p style="margin-top: 30px; font-size: 13px; color: #777; text-align: center;">
-                                Our seller will start preparing your fresh food soon. You can track your order status in your profile dashboard.
+                                Our delivery boy will delievred your order to your door step...
                             </p>
                         </div>
                         

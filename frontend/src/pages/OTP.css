@@ -1,0 +1,21 @@
+@media screen and (max-width :575px) and (min-width :320px) {
+    .otp-main {
+        padding: 36px 20px !important;
+    }
+    .inner-oyp{
+        padding: 20px !important;
+    }
+    #romans{
+        height: 40px !important;
+        width: 34px !important;
+    }
+    .dby{
+        gap: 10px !important;
+    }
+    .otp-btn{
+        width: 70%;
+        margin-inline :auto !important;
+        padding: 6px !important;
+        font-size: 12px !important;
+    }
+}

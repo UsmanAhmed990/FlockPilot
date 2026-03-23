@@ -1,0 +1,39 @@
+@media screen and (max-width :575px) and (min-width :320px) {
+    .add-main {
+        padding: 20px 15px !important;
+    }
+.add-p{
+font-size: 12px !important;
+    }
+
+.add-h{
+font-size: 24px !important;
+padding: 0 !important;
+}
+.add-inps{
+padding: 8px 8px 12px 40px !important;
+}
+.add-plus{
+padding: 8px !important;
+}
+#add-btn{
+padding: 10px  !important;
+margin-top: 16px !important;
+
+}
+.hist{
+    font-size: 16px !important;
+    line-height: 20px !important;
+}
+.prest{
+    margin-top: 48px !important;
+}
+.preston{
+    padding: 14px !important;
+}
+.total-items{
+    padding: 8px !important;
+    font-size: 10px !important;
+}
+
+}

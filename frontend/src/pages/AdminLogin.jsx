@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from '../utils/axios';
+import './adminlogin.css';
 import { useNavigate } from 'react-router-dom';
 import { Shield, Lock, Mail, Eye, EyeOff, LogIn } from 'lucide-react';
 
@@ -38,7 +39,7 @@ const AdminLogin = () => {
     };
 
     return (
-        <div className="min-h-screen bg-black text-white flex items-center justify-center p-6 relative overflow-hidden">
+        <div className="admin-main-bar min-h-screen bg-black text-white flex items-center justify-center p-6 relative overflow-hidden">
             {/* Background */}
             <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_20%,rgba(239,68,68,0.05),transparent_60%)] pointer-events-none" />
             <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-red-500/5 rounded-full blur-3xl" />
@@ -46,10 +47,10 @@ const AdminLogin = () => {
             <div className="max-w-md w-full relative z-10">
                 {/* Logo */}
                 <div className="text-center mb-12">
-                    <div className="inline-flex p-5 rounded-[2rem] bg-red-500/10 border-2 border-red-500/20 mb-6">
+                    <div className="tag2 inline-flex p-5 rounded-[2rem] bg-red-500/10 border-2 border-red-500/20 mb-6">
                         <Shield className="w-12 h-12 text-red-500" />
                     </div>
-                    <h1 className="text-4xl font-black tracking-tight bg-gradient-to-r from-red-400 to-red-600 bg-clip-text text-transparent">
+                    <h1 className="adminh1 text-4xl font-black tracking-tight bg-gradient-to-r from-red-400 to-red-600 bg-clip-text text-transparent">
                         Admin Access
                     </h1>
                     <p className="text-gray-500 mt-2 font-bold uppercase tracking-[0.2em] text-xs">
@@ -58,7 +59,7 @@ const AdminLogin = () => {
                 </div>
 
                 {/* Form */}
-                <form onSubmit={handleSubmit} className="bg-gray-900/50 border border-gray-800 rounded-[2.5rem] p-8 backdrop-blur-xl space-y-6">
+                <form onSubmit={handleSubmit} className="form-main bg-gray-900/50 border border-gray-800 rounded-[2.5rem] p-8 backdrop-blur-xl space-y-6">
                     {error && (
                         <div className="p-4 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm font-bold text-center">
                             {error}
@@ -77,7 +78,7 @@ const AdminLogin = () => {
                                 onChange={handleChange}
                                 required
                                 placeholder="admin@example.com"
-                                className="w-full bg-black border border-gray-800 rounded-2xl py-4 pl-12 pr-4 text-gray-200 focus:outline-none focus:border-red-500/50 transition-all font-medium placeholder:text-gray-700"
+                                className="inp23 w-full bg-black border border-gray-800 rounded-2xl py-4 pl-12 pr-4 text-gray-200 focus:outline-none focus:border-red-500/50 transition-all font-medium placeholder:text-gray-700"
                             />
                         </div>
                     </div>
@@ -94,14 +95,14 @@ const AdminLogin = () => {
                                 onChange={handleChange}
                                 required
                                 placeholder="Enter your passcode"
-                                className="w-full bg-black border border-gray-800 rounded-2xl py-4 px-12 text-gray-200 focus:outline-none focus:border-red-500/50 transition-all font-medium placeholder:text-gray-700"
+                                className="inp23 w-full bg-black border border-gray-800 rounded-2xl py-4 px-12 text-gray-200 focus:outline-none focus:border-red-500/50 transition-all font-medium placeholder:text-gray-700"
                             />
                             <button
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-600 hover:text-gray-400 transition-colors"
+                                className="admin-button absolute right-4 top-1/2 -translate-y-1/2 text-gray-600 hover:text-gray-400 transition-colors"
                             >
-                                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                {showPassword ?   <EyeOff size={18} /> : <Eye size={18} />}
                             </button>
                         </div>
                     </div>
@@ -110,7 +111,7 @@ const AdminLogin = () => {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full py-4 rounded-2xl bg-red-600 text-white font-black uppercase tracking-widest hover:bg-red-700 transition-all active:scale-95 shadow-[0_0_24px_rgba(239,68,68,0.25)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+                        className=" admin-btn w-full py-4 rounded-2xl bg-red-600 text-white font-black uppercase tracking-widest hover:bg-red-700 transition-all active:scale-95 shadow-[0_0_24px_rgba(239,68,68,0.25)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
                     >
                         {loading ? (
                             <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -119,7 +120,7 @@ const AdminLogin = () => {
                         )}
                     </button>
 
-                    <p className="text-center text-xs text-gray-700 font-bold uppercase tracking-widest">
+                    <p className="p-last text-center text-xs text-gray-700 font-bold uppercase tracking-widest">
                         All access attempts are logged
                     </p>
                 </form>

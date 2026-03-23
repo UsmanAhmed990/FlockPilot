@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Edit3, Trash2, X, Package, Tag, IndianRupee, FileText, Plus, Shield } from 'lucide-react';
 import socket from '../utils/socket';
+import "./add-items.css";
 
 const AddItems = () => {
     const [formData, setFormData] = useState({
@@ -95,11 +96,9 @@ const AddItems = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const userId = localStorage.getItem('userId');
-            
             await axios.post('/api/food/add', {
                 ...formData,
-                userId: userId,
+                userId: user?._id,
                 images: formData.image ? [formData.image] : [],
                 dietType: 'Regular'
             });
@@ -158,16 +157,16 @@ const AddItems = () => {
                 )}
                 <div className="grid grid-cols-1 lg:grid-cols-1 gap-12">
                     {/* ADD FORM */}
-                    <div className="bg-gray-900/80 backdrop-blur-xl p-8 md:p-10 rounded-3xl border border-gray-800 shadow-2xl">
+                    <div className="add-main bg-gray-900/80 backdrop-blur-xl p-8 md:p-10 rounded-3xl border border-gray-800 shadow-2xl">
                         <div className="flex items-center gap-4 mb-6">
-                            <div className="p-3 bg-amber-500/10 rounded-2xl">
+                            <div className="add-plus p-3 bg-amber-500/10 rounded-2xl">
                                 <Plus size={24} className="text-amber-500" />
                             </div>
                             <div>
-                                <h1 className="text-3xl font-extrabold bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">
+                                <h1 className="add-h text-3xl font-extrabold bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">
                                     Add New Item
                                 </h1>
-                                <p className="text-gray-500 text-sm font-medium">Create a new product listing</p>
+                                <p className="add-p text-gray-500 text-sm font-medium">Create a new product listing</p>
                             </div>
                         </div>
 
@@ -181,7 +180,7 @@ const AddItems = () => {
                                         <Tag className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 group-focus-within:text-amber-500 transition-colors" />
                                         <select
                                             required
-                                            className="w-full bg-black border border-gray-800 rounded-2xl pl-12 pr-5 py-4 text-white focus:outline-none focus:border-amber-500 transition-all appearance-none cursor-pointer"
+                                            className=" add-inps w-full bg-black border border-gray-800 rounded-2xl pl-12 pr-5 py-4 text-white focus:outline-none focus:border-amber-500 transition-all appearance-none cursor-pointer"
                                             value={formData.category}
                                             onChange={(e) => setFormData({...formData, category: e.target.value})}
                                         >
@@ -203,7 +202,7 @@ const AddItems = () => {
                                             type="text"
                                             required
                                             placeholder="Premium Whole Chicken"
-                                            className="w-full bg-black border border-gray-800 rounded-2xl pl-12 pr-5 py-4 text-white focus:outline-none focus:border-amber-500 transition-all"
+                                            className=" add-inps w-full bg-black border border-gray-800 rounded-2xl pl-12 pr-5 py-4 text-white focus:outline-none focus:border-amber-500 transition-all"
                                             value={formData.name}
                                             onChange={(e) => setFormData({...formData, name: e.target.value})}
                                         />
@@ -220,7 +219,7 @@ const AddItems = () => {
                                             type="number"
                                             required
                                             placeholder="850"
-                                            className="w-full bg-black border border-gray-800 rounded-2xl pl-12 pr-5 py-4 text-white focus:outline-none focus:border-amber-500 transition-all"
+                                            className="add-inps w-full bg-black border border-gray-800 rounded-2xl pl-12 pr-5 py-4 text-white focus:outline-none focus:border-amber-500 transition-all"
                                             value={formData.price}
                                             onChange={(e) => setFormData({...formData, price: e.target.value})}
                                         />
@@ -234,7 +233,7 @@ const AddItems = () => {
                                         <input
                                             type="text"
                                             placeholder="https://..."
-                                            className="w-full bg-black border border-gray-800 rounded-2xl pl-12 pr-5 py-4 text-white focus:outline-none focus:border-amber-500 transition-all"
+                                            className="add-inps w-full bg-black border border-gray-800 rounded-2xl pl-12 pr-5 py-4 text-white focus:outline-none focus:border-amber-500 transition-all"
                                             value={formData.image}
                                             onChange={(e) => setFormData({...formData, image: e.target.value})}
                                         />
@@ -254,7 +253,7 @@ const AddItems = () => {
                                 ></textarea>
                             </div>
 
-                            <button
+                            <button id='add-btn'
                                 type="submit"
                                 disabled={currentProfile && (currentProfile.role === 'seller' || currentProfile.role === 'chef') && !currentProfile.isVerified}
                                 className={`w-full font-black uppercase tracking-widest text-sm py-5 rounded-2xl hover:scale-[1.01] active:scale-95 transition-all duration-300 shadow-xl shadow-amber-500/20 ${
@@ -272,21 +271,21 @@ const AddItems = () => {
                 </div>
 
                 {/* ITEMS HISTORY SECTION */}
-                <div className="mt-20">
+                <div className="prest mt-20">
                     <div className="flex items-center justify-between mb-8">
                         <div>
-                            <h2 className="text-3xl font-black bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">
+                            <h2 className="hist text-3xl font-black bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">
                                 Items History – Manage your active marketplace listings
                             </h2>
                             <p className="text-gray-500 text-sm font-medium mt-1">See what you are selling currently</p>
                         </div>
-                        <div className="bg-gray-900 border border-gray-800 px-4 py-2 rounded-xl text-xs font-bold text-amber-500">
+                        <div className="total-items bg-gray-900 border border-gray-800 px-4 py-2 rounded-xl text-xs font-bold text-amber-500">
                             {foods.length} Total Items
                         </div>
                     </div>
                     
                     {foods.length === 0 ? (
-                        <div className="text-center py-20 bg-gray-900/40 rounded-3xl border-2 border-dashed border-gray-800">
+                        <div className="presto text-center py-20 bg-gray-900/40 rounded-3xl border-2 border-dashed border-gray-800">
                             <div className="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
                                 <Package size={24} className="text-gray-600" />
                             </div>
@@ -317,7 +316,7 @@ const AddItems = () => {
                                             <Package size={32} className="text-gray-700" />
                                         </div>
                                     )}
-                                    <div className="p-6 flex-grow flex flex-col">
+                                    <div className="preston p-6 flex-grow flex flex-col">
                                         <div className="flex justify-between items-start mb-3">
                                             <h3 className="font-black text-white group-hover:text-amber-400 transition-colors">
                                                 {food.name}
@@ -386,7 +385,7 @@ const AddItems = () => {
                                         <input
                                             type="text"
                                             required
-                                            className="w-full bg-black border border-gray-800 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-amber-500 transition-all font-bold"
+                                            className="add-inps w-full bg-black border border-gray-800 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-amber-500 transition-all font-bold"
                                             value={editData.name}
                                             onChange={(e) => setEditData({...editData, name: e.target.value})}
                                         />
@@ -396,7 +395,7 @@ const AddItems = () => {
                                         <input
                                             type="number"
                                             required
-                                            className="w-full bg-black border border-gray-800 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-amber-500 transition-all font-bold"
+                                            className="add-inps w-full bg-black border border-gray-800 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-amber-500 transition-all font-bold"
                                             value={editData.price}
                                             onChange={(e) => setEditData({...editData, price: e.target.value})}
                                         />
@@ -435,7 +434,7 @@ const AddItems = () => {
                                     <label className="text-gray-400 text-[10px] font-black uppercase tracking-[0.2em] ml-1">Image URL</label>
                                     <input
                                         type="text"
-                                        className="w-full bg-black border border-gray-800 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-amber-500 transition-all font-medium"
+                                        className="add-inps w-full bg-black border border-gray-800 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-amber-500 transition-all font-medium"
                                         value={editData.image}
                                         onChange={(e) => setEditData({...editData, image: e.target.value})}
                                     />

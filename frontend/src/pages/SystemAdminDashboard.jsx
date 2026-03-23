@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Shield, Activity, Users, ShoppingCart, TrendingUp, AlertCircle, UserPlus, LogIn, Package, Star, MessageSquare, CheckCircle, Clock } from 'lucide-react';
 import axios from '../utils/axios';
 import socket from '../utils/socket';
+import './adminsystemdash.css';
 
 const SystemAdminDashboard = () => {
     const [notifications, setNotifications] = useState([]);
@@ -75,16 +76,16 @@ const SystemAdminDashboard = () => {
     };
 
     return (
-        <div className="min-h-screen bg-black text-white p-8 pt-24">
+        <div className="high min-h-screen bg-black text-white p-8 pt-24">
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10 border-b border-gray-800 pb-8">
                     <div className="flex items-center gap-4">
-                        <div className="p-4 bg-amber-500 rounded-2xl shadow-[0_0_20px_rgba(245,158,11,0.4)]">
+                        <div className="tager p-4 bg-amber-500 rounded-2xl shadow-[0_0_20px_rgba(245,158,11,0.4)]">
                             <Shield size={32} className="text-black" />
                         </div>
                         <div>
-                            <h1 className="text-4xl font-black bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent uppercase tracking-tighter italic">
+                            <h1 className="systemh1 text-4xl font-black bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent uppercase tracking-tighter italic">
                                 Administrative System
                             </h1>
                             <p className="text-gray-500 font-bold tracking-[0.3em] text-[10px] uppercase mt-1">
@@ -105,7 +106,7 @@ const SystemAdminDashboard = () => {
                 </div>
 
                 {/* Stat Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
                     <StatCard icon={<Activity className="text-blue-400" />} label="Network Traffic" value={stats.totalTraffic} status="Normal" />
                     <StatCard icon={<UserPlus className="text-green-400" />} label="Recent Signups" value={stats.newSignups} status="Growth" />
                     <StatCard icon={<AlertCircle className="text-red-400" />} label="Unread Alerts" value={stats.pendingAlerts} status={stats.pendingAlerts > 0 ? "Critical" : "Clear"} />
@@ -113,16 +114,16 @@ const SystemAdminDashboard = () => {
                 </div>
 
                 {/* Notifications Panel */}
-                <div className="bg-gray-900/40 rounded-[2.5rem] border border-gray-800 p-10 backdrop-blur-xl shadow-2xl relative overflow-hidden group">
+                <div className="ely rbg-gray-900/40 rounded-[2.5rem] border border-gray-800 p-10 backdrop-blur-xl shadow-2xl relative overflow-hidden group">
                     <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 blur-[100px] rounded-full -translate-y-1/2 translate-x-1/2"></div>
                     
-                    <div className="flex items-center justify-between mb-10">
+                    <div className="ripon flex items-center justify-between mb-10">
                         <div className="flex items-center gap-4">
                             <div className="w-12 h-12 bg-amber-500/10 rounded-2xl flex items-center justify-center border border-amber-500/20">
                                 <AlertCircle className="text-amber-500" />
                             </div>
                             <div>
-                                <h2 className="text-2xl font-black text-white tracking-tight uppercase italic">Live Notification Stream</h2>
+                                <h2 className="elyh2 text-2xl font-black text-white tracking-tight uppercase italic">Live Notification Stream</h2>
                                 <p className="text-gray-500 text-xs font-bold uppercase tracking-widest">Real-time WebSocket Sync Active</p>
                             </div>
                         </div>
@@ -130,7 +131,7 @@ const SystemAdminDashboard = () => {
                         {notifications.length > 0 && (
                             <button 
                                 onClick={markAllRead}
-                                className="flex items-center gap-2 px-6 py-3 bg-red-600/10 text-red-500 border border-red-500/20 rounded-2xl hover:bg-red-600 hover:text-white transition-all font-black text-xs uppercase tracking-tighter"
+                                className="rip-btn flex items-center gap-2 px-6 py-3 bg-red-600/10 text-red-500 border border-red-500/20 rounded-2xl hover:bg-red-600 hover:text-white transition-all font-black text-xs uppercase tracking-tighter"
                             >
                                 <CheckCircle size={14} />
                                 Clear All Notifications
@@ -150,7 +151,7 @@ const SystemAdminDashboard = () => {
                             </div>
                         ) : (
                             notifications.map((n, index) => (
-                                <div 
+                                <div id='quick'
                                     key={n._id} 
                                     className={`flex items-start gap-6 p-6 rounded-3xl border transition-all duration-500 transform ${n.isRead ? 'bg-black/20 border-gray-800/30' : 'bg-gray-800/40 border-amber-500/30 shadow-[0_4px_30px_rgba(245,158,11,0.05)] -translate-y-1'}`}
                                     style={{ animation: !n.isRead ? 'slide-in 0.5s ease-out' : 'none' }}
@@ -206,7 +207,7 @@ const SystemAdminDashboard = () => {
 };
 
 const StatCard = ({ icon, label, value, status }) => (
-    <div className="bg-gray-900/60 p-8 rounded-[2rem] border border-gray-800 hover:border-amber-500/20 transition-all duration-500 group relative overflow-hidden">
+    <div className="realme bg-gray-900/60 p-8 rounded-[2rem] border border-gray-800 hover:border-amber-500/20 transition-all duration-500 group relative overflow-hidden">
         <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
         <div className="flex justify-between items-start mb-6">
             <div className="p-3 bg-black rounded-2xl border border-gray-800 group-hover:bg-amber-500 transition-all duration-500 group-hover:text-black text-amber-500 group-hover:rotate-12 group-hover:scale-110">

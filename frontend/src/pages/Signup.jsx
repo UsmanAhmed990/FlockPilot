@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { register, clearErrors } from '../features/authSlice';
 import { useNavigate, Link } from 'react-router-dom';
 import { Mail, Lock, User, ChefHat, UserPlus, Phone, Shield } from 'lucide-react';
+import "./signup.css"
 
 const Signup = () => {
     const [user, setUser] = useState({
@@ -13,6 +14,7 @@ const Signup = () => {
         address: '',
         role: 'buyer'
     });
+    const [certificate, setCertificate] = useState(null);
 
     const { name, email, phone, password, address, role } = user;
     
@@ -36,8 +38,17 @@ const Signup = () => {
 
     const submitHandler = (e) => {
         e.preventDefault();
-        const registerData = { ...user, email: email.toLowerCase() };
-        dispatch(register(registerData));
+        
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('email', email.toLowerCase());
+        formData.append('phone', phone);
+        formData.append('password', password);
+        formData.append('role', role);
+        if (address) formData.append('address', address);
+        if (certificate) formData.append('certificate', certificate);
+
+        dispatch(register(formData));
     };
 
     return (
@@ -50,13 +61,13 @@ const Signup = () => {
 
             <div className="max-w-md w-full space-y-8 relative z-10 animate-scale-in">
                 {/* Card */}
-               <div className="bg-black/90 p-10 rounded-2xl shadow-2xl border border-amber-600">
+               <div className="login-box bg-black/90 p-10 rounded-2xl shadow-2xl border border-amber-600">
   {/* Header */}
   <div className="text-center mb-8">
-    <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-amber-500 to-amber-700 rounded-2xl mb-4 shadow-lg">
+    <div className="login-bbx inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-amber-500 to-amber-700 rounded-2xl mb-4 shadow-lg">
       <UserPlus className="w-8 h-8 text-white" />
     </div>
-    <h2 className="text-3xl font-bold text-white uppercase italic tracking-tighter">
+    <h2 className="texter text-3xl font-bold text-white uppercase italic tracking-tighter">
       {role === 'seller' ? 'Seller Hub Registration' : 'Join FlockPilot'}
     </h2>
     <p className="mt-2 text-gray-500 text-xs font-bold uppercase tracking-widest">
@@ -68,8 +79,8 @@ const Signup = () => {
   <form className="space-y-4" onSubmit={submitHandler}>
     {/* Role Selection */}
     <div className="mb-6">
-      <div className="grid grid-cols-3 gap-4">
-        <button
+      <div className="grid grid-cols-2 gap-4">
+        <button id='btn1'
           type="button"
           onClick={() => setUser({ ...user, role: 'buyer' })}
           className={`p-4 rounded-xl border-2 transition-all duration-300 ${
@@ -83,7 +94,7 @@ const Signup = () => {
             Buy Poultry
           </div>
         </button>
-        <button
+        <button id='btn2'
           type="button"
           onClick={() => setUser({ ...user, role: 'seller' })}
           className={`p-4 rounded-xl border-2 transition-all duration-300 ${
@@ -95,16 +106,6 @@ const Signup = () => {
           <ChefHat className={`w-6 h-6 mx-auto mb-2 ${role === 'seller' ? 'text-black' : 'text-amber-400'}`} />
           <div className={`text-[10px] font-black uppercase tracking-widest ${role === 'seller' ? 'text-black' : 'text-white'}`}>
             Sell Poultry
-          </div>
-        </button>
-        <button
-          type="button"
-          onClick={() => navigate('/admin/login')}
-          className="p-4 rounded-xl border-2 transition-all duration-300 border-gray-800 hover:border-amber-400 text-white"
-        >
-          <Shield className="w-6 h-6 mx-auto mb-2 text-amber-400" />
-          <div className="text-[10px] font-black uppercase tracking-widest text-white">
-            Admin
           </div>
         </button>
       </div>
@@ -124,7 +125,7 @@ const Signup = () => {
                     type="text"
                     name="name"
                     required
-                    className="w-full bg-zinc-900 border border-zinc-800 text-white text-sm rounded-xl py-3 pl-11 pr-4 focus:border-amber-500/50 focus:ring-0 outline-none transition-all placeholder:text-zinc-700 font-bold"
+                    className="inp1 w-full bg-zinc-900 border border-zinc-800 text-white text-sm rounded-xl py-3 pl-11 pr-4 focus:border-amber-500/50 focus:ring-0 outline-none transition-all placeholder:text-zinc-700 font-bold"
                     placeholder="e.g. Ali Poultry Farm"
                     value={name}
                     onChange={registerDataChange}
@@ -146,7 +147,7 @@ const Signup = () => {
           type="email"
           name="email"
           required
-          className="w-full bg-zinc-900 border border-zinc-800 text-white text-sm rounded-xl py-3 pl-11 pr-4 focus:border-amber-500/50 focus:ring-0 outline-none transition-all placeholder:text-zinc-700 font-bold"
+          className="inp2 w-full bg-zinc-900 border border-zinc-800 text-white text-sm rounded-xl py-3 pl-11 pr-4 focus:border-amber-500/50 focus:ring-0 outline-none transition-all placeholder:text-zinc-700 font-bold"
           placeholder="you@example.com"
           value={email}
           onChange={registerDataChange}
@@ -167,7 +168,7 @@ const Signup = () => {
           type="password"
           name="password"
           required
-          className="w-full bg-zinc-900 border border-zinc-800 text-white text-sm rounded-xl py-3 pl-11 pr-4 focus:border-amber-500/50 focus:ring-0 outline-none transition-all placeholder:text-zinc-700 font-bold"
+          className="inp3 w-full bg-zinc-900 border border-zinc-800 text-white text-sm rounded-xl py-3 pl-11 pr-4 focus:border-amber-500/50 focus:ring-0 outline-none transition-all placeholder:text-zinc-700 font-bold"
           placeholder="••••••••"
           value={password}
           onChange={registerDataChange}
@@ -188,7 +189,7 @@ const Signup = () => {
           type="text"
           name="phone"
           required
-          className="w-full bg-zinc-900 border border-zinc-800 text-white text-sm rounded-xl py-3 pl-11 pr-4 focus:border-amber-500/50 focus:ring-0 outline-none transition-all placeholder:text-zinc-700 font-bold"
+          className="inp4 w-full bg-zinc-900 border border-zinc-800 text-white text-sm rounded-xl py-3 pl-11 pr-4 focus:border-amber-500/50 focus:ring-0 outline-none transition-all placeholder:text-zinc-700 font-bold"
           placeholder="+92 300 1234567"
           value={phone}
           onChange={registerDataChange}
@@ -214,11 +215,30 @@ const Signup = () => {
         </div>
     )}
 
+    {/* Certificate Upload (Seller Only) */}
+    {role === 'seller' && (
+        <div className="animate-in fade-in slide-in-from-top-2 duration-300">
+            <label className="block text-[10px] font-black text-amber-500 uppercase tracking-widest mb-2 ml-1">
+                Upload Verified Certificate-Letter (Image or PDF)
+            </label>
+            <div className="relative">
+                <input
+                    type="file"
+                    name="certificate"
+                    required
+                    accept="image/*,application/pdf"
+                    onChange={(e) => setCertificate(e.target.files[0])}
+                    className="w-full bg-zinc-900 border border-zinc-800 text-white text-sm rounded-xl py-3 px-4 focus:border-amber-500/50 focus:ring-0 outline-none transition-all file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-black file:bg-amber-500 file:text-black hover:file:bg-amber-600"
+                />
+            </div>
+        </div>
+    )}
+
     {/* Submit Button */}
     <button
       type="submit"
       disabled={loading}
-      className="w-full py-4 text-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed mt-4 bg-gradient-to-r from-amber-500 to-amber-700 text-black font-black uppercase tracking-widest text-xs rounded-xl shadow-[0_5px_15px_rgba(245,158,11,0.3)] hover:scale-[1.02] transition-all active:scale-95"
+      className="btn-signup w-full py-4 text-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed mt-4 bg-gradient-to-r from-amber-500 to-amber-700 text-black font-black uppercase tracking-widest text-xs rounded-xl shadow-[0_5px_15px_rgba(245,158,11,0.3)] hover:scale-[1.02] transition-all active:scale-95"
     >
       {loading ? (
         <>
@@ -236,7 +256,7 @@ const Signup = () => {
 </div>
 
                 {/* Bottom Text */}
-                <p className="text-center text-sm text-gray-500">
+                <p className="p-ft text-center text-sm text-gray-500">
                     By creating an account, you agree to our Terms of Service and Privacy Policy
                 </p>
             </div>

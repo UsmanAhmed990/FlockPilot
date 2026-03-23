@@ -47,13 +47,13 @@ const PrivateRoute = ({ children }) => {
                 <div className="fixed top-24 right-4 md:right-8 z-[100] animate-in fade-in slide-in-from-right-10 duration-500">
                     <button
                         onClick={handleLock}
-                        className="group flex items-center gap-3 bg-black/80 backdrop-blur-md border border-amber-500/50 text-amber-500 font-bold px-4 py-2.5 rounded-2xl shadow-2xl hover:bg-amber-500 hover:text-black transition-all duration-300"
+                        className="node group flex items-center gap-3 bg-black/80 backdrop-blur-md border border-amber-500/50 text-amber-500 font-bold px-4 py-2.5 rounded-2xl shadow-2xl hover:bg-amber-500 hover:text-black transition-all duration-300"
                     >
                         <div className="relative flex items-center justify-center w-2 h-2">
                             <span className="absolute w-full h-full bg-amber-400 rounded-full animate-ping opacity-75"></span>
                             <span className="relative w-2 h-2 bg-amber-500 rounded-full"></span>
                         </div>
-                        <span className="text-xs tracking-widest uppercase">Admin Secure Node</span>
+                        <span className=" text-xs tracking-widest uppercase">Admin Secure Node</span>
                         <div className="w-px h-4 bg-amber-500/30"></div>
                         <span className="text-[10px] opacity-70 group-hover:opacity-100">LOCK</span>
                     </button>

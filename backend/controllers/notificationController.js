@@ -7,10 +7,12 @@ exports.getChefNotifications = async (req, res) => {
 
         // Handle Admin/Guest Admin bypass - Admins see ALL notifications
         if (req.user.role === 'admin' || req.user.id === 'guest_admin') {
+            console.log('Notification Fetch: Admin/Guest Admin detected, fetching all.');
             query = {}; // Empty query finds everything
         } else {
             // Use req.user.id directly as the sellerId
             query = { sellerId: req.user.id };
+            console.log('Notification Fetch: Seller detected. User ID:', req.user.id, 'Query:', JSON.stringify(query));
         }
 
         const notifications = await OrderNotification.find(query)

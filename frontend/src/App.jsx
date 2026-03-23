@@ -36,7 +36,8 @@ const Dashboard = () => <div className="min-h-screen pt-20 px-8"><h1 className="
 
 function App() {
   const location = useLocation();
-  const hideFooter = location.pathname === '/signup';
+  const hideFooterFromPaths = ['/signup', '/login', '/admin/login'];
+  const hideFooter = hideFooterFromPaths.includes(location.pathname);
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 text-gray-800">

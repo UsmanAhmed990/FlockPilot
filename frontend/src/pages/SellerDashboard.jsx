@@ -6,6 +6,8 @@ import { Package, DollarSign, Users, Clock, Shield, CheckCircle, XCircle, Chevro
 import AdminNotificationBell from '../components/layout/AdminNotificationBell';
 import NotificationBell from '../components/layout/NotificationBell';
 import { useSelector } from 'react-redux';
+import './sellerdashboard.css';
+
 
 const SellerDashboard = () => {
     const navigate = useNavigate();
@@ -209,7 +211,7 @@ const SellerDashboard = () => {
     if (loading) {
 
         return (
-            <div className="min-h-screen flex items-center justify-center bg-black">
+            <div className="use min-h-screen flex items-center justify-center bg-black">
                 <div className="w-16 h-16 border-4 border-amber-500 border-t-transparent rounded-full animate-spin"></div>
             </div>
         );
@@ -218,7 +220,7 @@ const SellerDashboard = () => {
 
     return (
 
-        <div className="min-h-screen bg-black text-white py-10">
+        <div className="mai-seller  min-h-screen bg-black text-white py-10">
 
             <div className="max-w-7xl mx-auto px-4">
                 {/* HEADER NAV */}
@@ -226,7 +228,7 @@ const SellerDashboard = () => {
                     <div>
                         <div className="flex items-center gap-2 mb-1">
                             <Shield className="w-6 h-6 text-amber-500" />
-                            <h1 className="text-4xl font-bold bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">
+                            <h1 className="sellerh1 text-4xl font-bold bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">
                                 Seller Dashboard
                             </h1>
                         </div>
@@ -266,7 +268,7 @@ const SellerDashboard = () => {
                             <div 
                                 key={i} 
                                 onClick={() => navigate(s.link)}
-                                className="bg-gray-900 border border-gray-800 rounded-2xl p-6 hover:border-amber-500 transition cursor-pointer group shadow-xl hover:shadow-amber-500/10"
+                                className="pend1 bg-gray-900 border border-gray-800 rounded-2xl p-6 hover:border-amber-500 transition cursor-pointer group shadow-xl hover:shadow-amber-500/10"
                             >
                                 <div className="flex justify-between items-center">
                                     <div>
@@ -275,13 +277,13 @@ const SellerDashboard = () => {
                                     </div>
                                     <s.icon className="w-8 h-8 text-amber-500 group-hover:scale-110 transition-transform" />
                                 </div>
-                                <div className="mt-4 pt-4 border-t border-gray-800/50 flex items-center justify-between">
+                                <div className="pend2 mt-4 pt-4 border-t border-gray-800/50 flex items-center justify-between">
                                     <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest">Click to Manage</span>
                                     <ChevronRight size={14} className="text-gray-600 group-hover:text-amber-500 transition-colors" />
                                 </div>
                             </div>
                         ) : (
-                            <div key={i} className="bg-gray-900 border border-gray-800 rounded-2xl p-6 hover:border-amber-500 transition">
+                            <div key={i} className="pend1 bg-gray-900 border border-gray-800 rounded-2xl p-6 hover:border-amber-500 transition">
                                 <div className="flex justify-between items-center">
                                     <div>
                                         <p className="text-sm text-gray-400 uppercase font-black tracking-widest text-[10px]">{s.label}</p>
@@ -301,7 +303,7 @@ const SellerDashboard = () => {
 
                 {/* ORDERS TABLE */}
 
-                <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6 overflow-x-auto">
+                <div className="pend2 bg-gray-900 border border-gray-800 rounded-2xl p-6 overflow-x-auto">
 
                     <h2 className="text-2xl font-bold mb-6 text-amber-400">
                         Recent Orders
@@ -482,7 +484,7 @@ const SellerDashboard = () => {
                             <div className="flex items-center gap-3">
                                 <Users className="text-amber-500 w-8 h-8" />
                                 <div>
-                                    <h2 className="text-2xl font-black text-amber-400 tracking-tight">
+                                    <h2 className="usersh2 text-2xl font-black text-amber-400 tracking-tight">
                                         User Management
                                     </h2>
                                     <p className="text-xs text-gray-500 font-bold uppercase tracking-widest">Approve or Block Sellers</p>
